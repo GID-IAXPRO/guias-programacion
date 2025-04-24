@@ -1,0 +1,9 @@
+name: guias-proii
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - pandoc
+  - pandocfilters
+  - tectonic
+  - make
