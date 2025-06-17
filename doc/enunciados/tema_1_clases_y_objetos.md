@@ -9,8 +9,6 @@ Cada respuesta debe tener entre 2 - 4 párrafos de longitud (sin contar los troz
 
 Por favor, escribe en impersonal las respuestas.
 
-Responde de una en una
-
 </prompt>
 ----
 -->
@@ -50,7 +48,7 @@ Responde de una en una
 ### Respuesta
 
 
-## 8. Ejemplo mínimo de clase en Java, que se llame Punto, con dos atributos, x e y, con un método que se llame `calculaDistanciaAOrigen`, que calcule la distancia a la posición 0,0. Por sencillez, los atributos deben tener visibilidad por defecto 
+## 8. Ejemplo mínimo de clase en Java, que se llame Punto, con dos atributos, x e y, con un método que se llame `calculaDistanciaAOrigen`, que calcule la distancia a la posición 0,0. Por sencillez, los atributos deben tener visibilidad por defecto. Crea además un ejemplo de uso con una instancia y uso del método. 
 
 ### Respuesta
 
@@ -64,12 +62,12 @@ Responde de una en una
 ### Respuesta
 
 
-## 11. En el código anterior de la clase Punto ¿Qué es `new`? ¿Qué es un **constructor**? 
+## 11. En el código anterior de la clase Punto ¿Qué es `new`? ¿Qué es un **constructor**? Pon un ejemplo de constructor en una clase `Empleado` que tenga DNI, nombre y apellidos.
 
 ### Respuesta
 
 
-## 12. ¿Qué es la referencia `this`? ¿Se llama igual en todos los lenguajes?
+## 12. ¿Qué es la referencia `this`? ¿Se llama igual en todos los lenguajes? Pon un ejemplo del uso de `this` en la clase `Punto`.
 
 ### Respuesta
 
@@ -84,7 +82,7 @@ Responde de una en una
 ### Respuesta
 
 
-## 15. ¿Qué es el método `toString()` en Java? ¿Existe en otros lenguajes? Pon un ejemplo de `toString()` en la clase Punto en Java. 
+## 15. ¿Qué es el método `toString()` en Java? ¿Existe en otros lenguajes? Pon un ejemplo de `toString()` en la clase `Punto` en Java. 
 
 ### Respuesta
 
