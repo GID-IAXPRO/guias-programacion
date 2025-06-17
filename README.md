@@ -95,26 +95,20 @@ Es necesario contar con una cuenta en GitHub. A continuación, se describen los 
    git remote add upstream https://github.com/lipido/guias-proii.git
    ```
 
-4. **Crear una rama para los cambios**  
-   Antes de realizar modificaciones, crear una nueva rama para organizar el trabajo:
-   ```bash
-   git checkout -b mis-respuestas
-   ```
-
-5. **Editar los archivos y realizar commits**  
+4. **Editar los archivos y realizar commits**  
    Realizar los cambios necesarios en los archivos. Luego, añadir y guardar los cambios con los siguientes comandos:
    ```bash
    git add .
    git commit -m "Descripción de los cambios realizados"
    ```
 
-6. **Subir los cambios al fork**  
+5. **Subir los cambios al fork**  
    Subir los cambios al repositorio en GitHub:
    ```bash
-   git push origin mis-respuestas
+   git push origin main
    ```
 
-7. **(Opcional) Obtener actualizaciones del repositorio original**  
+6. **(Opcional) Obtener actualizaciones del repositorio original**  
    Para sincronizar los cambios realizados en el repositorio original, se puede ejecutar el siguiente comando:
    ```bash
    git pull upstream main
