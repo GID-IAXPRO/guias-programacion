@@ -1,14 +1,14 @@
 # 📘 Guías de Programación II
 
-Este repositorio contiene material de apoyo para la **parte teórica** de la asignatura de [Programación II](https://esei.uvigo.es/asignaturas/graoei/programacion-ii-o06-g151109/), en forma de cuestionarios y enunciados en formato [Markdown](https://en.wikipedia.org/wiki/Markdown).
+Este repositorio contiene material de apoyo para la **parte teórica** de la asignatura de [Programación II](https://esei.uvigo.es/asignaturas/graoei/programacion-ii-o06-g151109/), en forma de cuestionarios en formato [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
 Metodológicamente, los cuestionarios tienen un doble objetivo:
 
-1. Guiar las clases de teoría presenciales, que tratarán las cuestiones en orden.
+1. Guiar las clases de teoría presenciales, que tratarán dichas cuestiones en orden.
 
 2. Fomentar que el cuestionario sea respondido **ANTES** de la clase teórica, siguiendo la metodología de "aula invertida".
 
-Para responder a los cuestionarios, se recomienda (1) **responder inicialmente** con IA generativa, como [ChatGPT](https://chat.openai.com/), [Gemini](https://gemini.google.com),  [GitHub Copilot](https://github.com/features/copilot), etc., (2) **verificar** las respuestas con recursos online, bibliografía y (3) **adaptar** las respuestas mediante ediciones personales y/o apoyo de IA generativa. Al final, estos cuestionarios servirán como apuntes para preparar la parte teórica de la asignatura.
+Para responder a los cuestionarios, se recomienda (1) **responder inicialmente** con IA generativa, como [ChatGPT](https://chat.openai.com/), [Gemini](https://gemini.google.com),  [GitHub Copilot](https://github.com/features/copilot), etc., (2) **verificar** las respuestas con recursos online, bibliografía y (3) **adaptar** las respuestas mediante ediciones personales y/o apoyo de IA generativa. Al final, estos cuestionarios servirán como apuntes para preparar la prueba teórica de la asignatura.
 
 A nivel técnico, las respuestas deben redactarse en formato [Markdown](https://en.wikipedia.org/wiki/Markdown), un lenguaje de marcado sencillo y ampliamente utilizado en las IA generativas (que generan este formato para mostrar respuestas con texto que incluye formato, emojis, tablas, etc.). Para más información sobre Markdown, se puede consultar [esta guía](https://www.markdownguide.org/).
 
@@ -24,7 +24,7 @@ A nivel técnico, las respuestas deben redactarse en formato [Markdown](https://
 
 ## ⚠️ Advertencia sobre el uso de IA generativa
 
-Aunque las herramientas de IA generativa como ChatGPT o GitHub Copilot pueden ser de gran ayuda, es fundamental verificar las respuestas generadas, especialmente en temas sobre los que no se tiene un conocimiento profundo. Las IAs pueden cometer errores o generar contenido impreciso.
+Aunque las herramientas de IA generativa como ChatGPT o GitHub Copilot resultan claves en este método, es fundamental verificar las respuestas generadas, especialmente en temas sobre los que no se tiene un conocimiento profundo. Las IAs pueden cometer errores o generar contenido impreciso.
 
 ### ✅ Consejos para verificar las respuestas
 
