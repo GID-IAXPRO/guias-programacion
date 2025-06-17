@@ -75,7 +75,7 @@ En esta alternativa, todo el trabajo se realiza dentro de un entorno de programa
 - Puede tener una curva de aprendizaje inicial para quienes no estén familiarizados con entornos de desarrollo.
 - Dependencia de una suscripción activa para GitHub Copilot, aunque los [estudiantes universitarios](https://github.com/education/students) pueden solicitar una suscripción gratuita al Copilot PRO, que permite, por ejemplo, un uso ilimitado a su modelo base (a día de hoy, GPT 4o).
 
-### Instrucciones básicas para usar Git/GitHub
+### Instrucciones básicas para cubrir cuestionarios usando además Git/GitHub
 
 Es necesario contar con una cuenta en GitHub. A continuación, se describen los pasos básicos para gestionar los apuntes con Git:
 
@@ -96,7 +96,13 @@ Es necesario contar con una cuenta en GitHub. A continuación, se describen los 
    ```
 
 4. **Editar los archivos y realizar commits**  
-   Realizar los cambios necesarios en los archivos. Luego, añadir y guardar los cambios con los siguientes comandos:
+   Para editar los ficheros, lo recomendable es **copiar el cuestionario** a la subcarpeta `doc/respuestas`. De esta forma, podrás conservar siempre el cuestionario original, responder incluso de varias formas un mismo cuestionario (con y sin IA generativa, por ejemplo, etc). Por ejemplo, copiar `doc/enunciados/fichero.md` a `doc/respuestas/fichero-gpt4o.md`.
+
+   ```bash
+   cp doc/enunciados/tema_1_clases_y_objetos.md doc/respuestas/tema_1_clases_y_objetos_gpt4o.md
+   ```
+
+   Realizar los cambios necesarios en los archivos que tengas en `doc/respuestas`. Luego, añadir y guardar los cambios con los siguientes comandos:
    ```bash
    git add .
    git commit -m "Descripción de los cambios realizados"
