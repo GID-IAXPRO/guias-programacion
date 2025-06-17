@@ -9,7 +9,6 @@ Cada respuesta debe tener entre 2 - 4 párrafos de longitud (sin contar los troz
 
 Por favor, escribe en impersonal las respuestas.
 
-Responde de una en una
 </prompt>
 ----
 -->
