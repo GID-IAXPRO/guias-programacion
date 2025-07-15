@@ -96,7 +96,7 @@ Es necesario contar con una cuenta en GitHub. A continuación, se describen los 
    ```
 
 4. **Editar los archivos y realizar commits**  
-   Para editar los ficheros, lo recomendable es **copiar el cuestionario** a la subcarpeta `doc/respuestas`. De esta forma, podrás conservar siempre el cuestionario original, responder incluso de varias formas un mismo cuestionario (con y sin IA generativa, por ejemplo, etc). Por ejemplo, copiar `doc/enunciados/fichero.md` a `doc/respuestas/fichero-gpt4o.md`.
+   Para editar los ficheros, lo recomendable es **copiar el cuestionario** a la subcarpeta `doc/respuestas`. De esta forma, podrás conservar siempre el cuestionario original, responder incluso de varias formas un mismo cuestionario (por ejemplo: con y sin IA generativa). Por ejemplo, copiar `doc/enunciados/fichero.md` a `doc/respuestas/fichero-gpt4o.md`.
 
    ```bash
    cp doc/enunciados/tema_1_clases_y_objetos.md doc/respuestas/tema_1_clases_y_objetos_gpt4o.md
@@ -105,7 +105,7 @@ Es necesario contar con una cuenta en GitHub. A continuación, se describen los 
    Realizar los cambios necesarios en los archivos que tengas en `doc/respuestas`. Luego, añadir y guardar los cambios con los siguientes comandos:
    ```bash
    git add .
-   git commit -m "Descripción de los cambios realizados"
+   git commit -m "Respondidas a las preguntas 1 a 4 del Tema 1"
    ```
 
 5. **Subir los cambios al fork**  
@@ -115,7 +115,7 @@ Es necesario contar con una cuenta en GitHub. A continuación, se describen los 
    ```
 
 6. **(Opcional) Obtener actualizaciones del repositorio original**  
-   Para sincronizar los cambios realizados en el repositorio original, se puede ejecutar el siguiente comando:
+   Esto podría darse cuando el profesor actualiza algún cuestionario. Para sincronizar los cambios realizados en el repositorio original, se puede ejecutar el siguiente comando:
    ```bash
    git pull upstream main
    ```
