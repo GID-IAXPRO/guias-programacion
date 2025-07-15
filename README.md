@@ -92,7 +92,7 @@ Es necesario contar con una cuenta en GitHub. A continuación, se describen los 
 3. **Definir el repositorio original como upstream**  
    Configurar el repositorio original como `upstream` para poder obtener actualizaciones en el futuro:
    ```bash
-   git remote add upstream https://github.com/lipido/guias-proii.git
+   git remote add upstream https://github.com/GID-IAXPRO/guias-programacion.git
    ```
 
 4. **Editar los archivos y realizar commits**  
