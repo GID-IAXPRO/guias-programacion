@@ -97,7 +97,7 @@ Es necesario contar con una cuenta en GitHub. A continuación, se describen los 
    Copiar la URL del fork y clonarlo en la máquina local utilizando el siguiente comando:
    ```bash
    git clone <URL_DEL_FORK>
-   cd guiasproii
+   cd guias-programacion
    ```
 
 3. **Definir el repositorio original como upstream**  
