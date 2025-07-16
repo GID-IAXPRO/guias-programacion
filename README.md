@@ -184,8 +184,26 @@ Si se utiliza Windows, se recomienda configurar el entorno utilizando WSL (Windo
    ```
    Tras ello, en la carpeta `pdf/build` estarán los ficheros PDF.
 
+   **Nota**: El sistema incluye soporte automático para **diagramas Mermaid**. Si tus archivos Markdown contienen diagramas Mermaid (usando bloques de código `mermaid`), el sistema instalará automáticamente las dependencias necesarias la primera vez que ejecutes `make`.
+
+### Uso de Diagramas Mermaid 📊
+
+Para incluir diagramas en tus respuestas, puedes usar la sintaxis de Mermaid:
+
+```mermaid
+graph TD
+    A[Inicio] --> B{¿Condición?}
+    B -->|Sí| C[Acción 1]
+    B -->|No| D[Acción 2]
+    C --> E[Fin]
+    D --> E
+```
+
+Los diagramas se convertirán automáticamente a imágenes en los PDFs generados.
+
 ### Notas 📝
 
 - El archivo `environment.yml` incluye todas las dependencias necesarias, como `pandoc` y `tectonic`, para convertir los archivos Markdown a PDF.
+- **Soporte para Mermaid**: El sistema detecta automáticamente si necesitas generar diagramas Mermaid e instala las dependencias necesarias (`@mermaid-js/mermaid-cli` y `pandoc-mermaid-filter`) sin intervención manual.
 - Si se necesita personalizar el estilo del PDF, se pueden modificar los archivos de configuración o las reglas en el `Makefile`.
 

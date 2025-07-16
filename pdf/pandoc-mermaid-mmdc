@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+"""
+Custom Pandoc filter for Mermaid diagrams using mmdc
+"""
+import os
+import sys
+import subprocess
+import tempfile
+import json
+from pathlib import Path
+
+def mermaid_filter(key, value, format, meta):
+    """Process mermaid code blocks"""
+    if key == 'CodeBlock':
+        [[ident, classes, keyvals], code] = value
+        if "mermaid" in classes:
+            # Create mermaid-images directory if it doesn't exist
+            mermaid_dir = Path('mermaid-images')
+            mermaid_dir.mkdir(exist_ok=True)
+            
+            # Create temporary files
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.mmd', delete=False) as f:
+                f.write(code)
+                mmd_file = f.name
+            
+            # Generate PNG file in mermaid-images directory
+            png_filename = f"mermaid_{hash(code) % 1000000}.png"
+            png_file = mermaid_dir / png_filename
+            
+            try:
+                # Run mmdc with quiet flag to suppress debug messages
+                result = subprocess.run([
+                    'mmdc', 
+                    '-i', mmd_file, 
+                    '-o', str(png_file),
+                    '--quiet'
+                ], capture_output=True, text=True)
+                
+                if result.returncode != 0:
+                    # If --quiet doesn't work, try without it but redirect stderr
+                    result = subprocess.run([
+                        'mmdc', 
+                        '-i', mmd_file, 
+                        '-o', str(png_file)
+                    ], capture_output=True, text=True)
+                
+                # Clean up temp files
+                os.unlink(mmd_file)
+                
+                if result.returncode == 0 and png_file.exists():
+                    # Return an image element
+                    return {
+                        't': 'Para',
+                        'c': [{
+                            't': 'Image',
+                            'c': [
+                                ['', [], []],  # attr
+                                [],            # caption
+                                [str(png_file), ''] # src and title
+                            ]
+                        }]
+                    }
+                else:
+                    # Return error message
+                    return {
+                        't': 'Para',
+                        'c': [{
+                            't': 'Str',
+                            'c': f'Error generating Mermaid diagram: {result.stderr}'
+                        }]
+                    }
+            except Exception as e:
+                # Clean up temp files
+                if os.path.exists(mmd_file):
+                    os.unlink(mmd_file)
+                return {
+                    't': 'Para',
+                    'c': [{
+                        't': 'Str',
+                        'c': f'Error: {str(e)}'
+                    }]
+                }
+    
+    return None
+
+def main():
+    """Main filter function"""
+    import pandocfilters
+    pandocfilters.toJSONFilter(mermaid_filter)
+
+if __name__ == "__main__":
+    main()
