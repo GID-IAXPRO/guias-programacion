@@ -1,4 +1,4 @@
-name: guias-proii
+name: guias-programacion
 channels:
   - conda-forge
 dependencies:

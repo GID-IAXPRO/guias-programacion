@@ -171,7 +171,7 @@ Si se utiliza Windows, se recomienda configurar el entorno utilizando WSL (Windo
    ```bash
    cd pdf
    conda env create -f environment.yml
-   conda activate guias-proii
+   conda activate guias-programacion
    ```
 
 2. **Editar los cuestionarios**  
