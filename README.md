@@ -12,6 +12,17 @@ Para responder a los cuestionarios, se recomienda (1) **responder inicialmente**
 
 A nivel técnico, las respuestas deben redactarse en formato [Markdown](https://en.wikipedia.org/wiki/Markdown), un lenguaje de marcado sencillo y ampliamente utilizado en las IA generativas (que generan este formato para mostrar respuestas con texto que incluye formato, emojis, tablas, etc.). Para más información sobre Markdown, se puede consultar [esta guía](https://www.markdownguide.org/).
 
+## 🔄 Metodología de trabajo
+
+Este repositorio sigue una metodología estructurada que combina el aprendizaje autónomo con la evaluación continua. El proceso incluye un ciclo iterativo semanal donde:
+
+1. **Profesor**: Publica nuevas preguntas 5 días antes de cada clase
+2. **Estudiante**: Hace pull, responde con IA generativa, genera PDF y asiste a clase
+3. **Consolidación**: Mejora apuntes y realiza commits obligatorios semanales
+4. **Evaluación**: El profesor evalúa la actividad mediante el historial de commits
+
+📋 **[Ver metodología completa y diagrama de flujo →](METODOLOGIA.md)**
+
 ## ✨ Ventajas del enfoque
 
 1. **Organización estructurada**: El uso de cuestionarios fomenta un aprendizaje guiado y enfocado en los temas clave de la asignatura. 📚
