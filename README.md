@@ -201,6 +201,9 @@ graph TD
 
 Los diagramas se convertirán automáticamente a imágenes en los PDFs generados.
 
+Para mejorar la experiencia de edición de archivos Markdown con diagramas mermaid, se recomienda instalar la extensión [Markdown Preview Mermaid Support](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid)
+
+
 ### Notas 📝
 
 - El archivo `environment.yml` incluye todas las dependencias necesarias, como `pandoc` y `tectonic`, para convertir los archivos Markdown a PDF.
