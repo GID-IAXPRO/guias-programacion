@@ -49,7 +49,7 @@ Por favor, escribe en impersonal las respuestas.
 ### Respuesta
 
 
-## 8. Responde: Los miembros de instancia privados de un objeto (a) no se pueden acceder desde otras clases o (b) desde otros objetos aunque sean de la misma clase. Pon un ejemplo añadiendo un método `calcularDistanciaAPunto(Punto otro)` y explica la respuesta.
+## 8. Responde: Los miembros de instancia privados de un objeto están ocultos para (a) otras clases o (b) otras instancias, aunque sean de la misma clase. Pon un ejemplo añadiendo un método `calcularDistanciaAPunto(Punto otro)` y explica la respuesta.
 
 ### Respuesta
 
