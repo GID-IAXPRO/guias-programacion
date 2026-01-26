@@ -90,24 +90,35 @@ En esta alternativa, todo el trabajo se realiza dentro de un entorno de programa
 
 Es necesario contar con una cuenta en GitHub. A continuación, se describen los pasos básicos para gestionar los apuntes con Git:
 
+#### Una única vez al comenzar el curso:
+
 1. **Realizar un fork del repositorio**  
    Acceder al repositorio original en GitHub y hacer clic en el botón "Fork" para crear una copia en la cuenta personal.
 
 2. **Clonar el fork en la máquina local**  
    Copiar la URL del fork y clonarlo en la máquina local utilizando el siguiente comando:
    ```bash
-   git clone <URL_DEL_FORK>
-   cd guias-programacion
+   git clone <URL_DEL_FORK> #ej: git clone https://github.com/usuario/guias-programacion-mifork
+   
+   # suponiendo que el fork se llama "guias-programacion-mifork"
+   cd guias-programacion-mifork
    ```
 
 3. **Definir el repositorio original como upstream**  
-   Configurar el repositorio original como `upstream` para poder obtener actualizaciones en el futuro:
+   Configurar el repositorio original como `upstream` para poder obtener actualizaciones en el futuro (por ejemplo: nuevos cuestionarios de cada semana):
    ```bash
    git remote add upstream https://github.com/GID-IAXPRO/guias-programacion.git
    ```
+#### Trabajo diario:
+1. **Comprobar si el profesor ha subido un nuevo cuestionario (o cualquier otro cambio)**
+   Para ello, lo que se hace es ejecutar pull sobre el remoto `upstream`. Se ejecuta el siguiente comando:
+   ```bash
+   git pull upstream main
+   ```
+   Esto traerá los cambios de la rama principal del repositorio original y los integrará en el repositorio local.
 
-4. **Editar los archivos y realizar commits**  
-   Para editar los ficheros, lo recomendable es **copiar el cuestionario** a la subcarpeta `doc/respuestas`. De esta forma, podrás conservar siempre el cuestionario original, responder incluso de varias formas un mismo cuestionario (por ejemplo: con y sin IA generativa). Por ejemplo, copiar `doc/enunciados/fichero.md` a `doc/respuestas/fichero-gpt4o.md`.
+2. **Editar los archivos y realizar commits**  
+   Para editar los ficheros, **lo recomendable es copiar el cuestionario** a la subcarpeta `doc/respuestas`. De esta forma, podrás conservar siempre el cuestionario original, **se evitan conflictos de git** con los cambios que hace el profesor, y permite responder incluso de varias formas un mismo cuestionario (por ejemplo: con y sin IA generativa). Por ejemplo, copiar `doc/enunciados/fichero.md` a `doc/respuestas/fichero-gpt4.1.md`.
 
    ```bash
    cp doc/enunciados/tema_1_clases_y_objetos.md doc/respuestas/tema_1_clases_y_objetos_gpt4o.md
@@ -119,24 +130,17 @@ Es necesario contar con una cuenta en GitHub. A continuación, se describen los 
    git commit -m "Respondidas a las preguntas 1 a 4 del Tema 1"
    ```
 
-5. **Subir los cambios al fork**  
+3. **Subir los cambios al fork**  
    Subir los cambios al repositorio en GitHub:
    ```bash
    git push origin main
    ```
 
-6. **(Opcional) Obtener actualizaciones del repositorio original**  
-   Esto podría darse cuando el profesor actualiza algún cuestionario. Para sincronizar los cambios realizados en el repositorio original, se puede ejecutar el siguiente comando:
-   ```bash
-   git pull upstream main
-   ```
-   Esto traerá los cambios de la rama principal del repositorio original y los integrará en el repositorio local.
-
 ## Instrucciones para generar PDF (opcional) 🖨️
 
 De cara a imprimir, exportar, o simplemente visualizar en cualquier dispositivo el formato Markdown de forma amigable, se puede generar un fichero PDF.
 
-Si bien se pueden emplear herramientas externas para generar documentos PDF, o extensiones de VSCode, este repositorio incluye unas instrucciones para generar los PDFs directamente de **todos aquellos ficheros markdown que se encuentren en la carpeta `doc/respuestas`**.
+Si bien se pueden emplear herramientas externas para generar documentos PDF, o extensiones de VSCode (recomendable: [Markdown Preview Enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/)). No obstante, este repositorio incluye unas instrucciones para generar los PDFs directamente de **todos aquellos ficheros markdown que se encuentren en la carpeta `doc/respuestas`**.
 
 ### Requisitos 📦
 
@@ -175,7 +179,7 @@ Si se utiliza Windows, se recomienda configurar el entorno utilizando WSL (Windo
    ```
 
 2. **Editar los cuestionarios**  
-   Los ficheros de preguntas deben copiarse desde la carpeta `doc/enunciados` a la carpeta `doc/respuestas`. Una vez copiados, editar los archivos en `doc/respuestas` para responder a las preguntas.
+   Como se ha comentado antes, los ficheros de preguntas deben copiarse desde la carpeta `doc/enunciados` a la carpeta `doc/respuestas`. Una vez copiados, editar los archivos en `doc/respuestas` para responder a las preguntas.
 
 3. **Generar los PDF**  
    Una vez editados los cuestionarios, utilizar `make` para generar los PDFs:
