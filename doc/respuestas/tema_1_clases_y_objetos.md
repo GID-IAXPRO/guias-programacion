@@ -18,9 +18,14 @@ Por favor, escribe en impersonal las respuestas.
 ## 1. ¿Cuáles son las cuatro características básicas de la programación orientada a objetos? Describe brevemente cada una
 
 ### Respuesta
-Mi respuesta de prueba.
+La abstracción consiste en identificar qué información y qué comportamientos son relevantes de un objeto, ignorando detalles innecesarios. En Java, esta idea se materializa mediante clases que representan conceptos del problema.
 
-Texto para un segundo commit.
+El encapsulamiento se refiere a proteger los datos internos de un objeto, permitiendo el acceso solo a través de métodos específicos. En lenguajes como Java esto se logra usando modificadores como private y public
+
+La herencia permite que una clase derive de otra y pueda reutilizar su código, ampliando o modificando su comportamiento. Por ejemplo, una clase Vehiculo de la cual heredan Coche o Moto. Frente a C/C++, donde sin orientación a objetos esto se haría manualmente con estructuras y funciones, en Java es un mecanismo integrado.
+
+El polimorfismo permite que diferentes clases respondan de manera distinta a un mismo método o mensaje. Esto hace posible escribir código más genérico, donde una referencia a una clase base pueda manipular objetos de varias clases derivadas
+
 
 
 ## 2. Cita cuatro lenguajes populares que permitan la programación orientada a objetos
