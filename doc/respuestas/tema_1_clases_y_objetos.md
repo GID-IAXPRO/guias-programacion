@@ -50,9 +50,10 @@ El estado son los datos que guarda (sus atributos o campos), que pueden cambiar 
 
 ## 5. ¿Qué es una clase? ¿Es lo mismo que un objeto? ¿Qué es una instancia? ¿Todos los lenguajes orientados a objetos manejan el concepto de clase?
 
-Una clase es un “molde” o definición: describe qué atributos y métodos tendrán los objetos de ese tipo. Un objeto es una entidad concreta creada siguiendo esa definición, con su propio estado. Por tanto, clase y objeto no son lo mismo: la clase es la descripción; el objeto es el resultado creado a partir de esa descripción.
+Una clase es un “molde” o definición: describe qué estado(atributos) y métodos tendrán los objetos de ese tipo. Un objeto es una entidad concreta creada siguiendo esa definición, con su propio estado. Por tanto, clase y objeto no son lo mismo: la clase es la descripción; el objeto es el resultado creado a partir de esa descripción.
 
-Una instancia es precisamente un objeto creado a partir de una clase: “instancia de la clase X”. No todos los lenguajes orientados a objetos se basan en clases; existen lenguajes orientados a objetos basados en prototipos (por ejemplo, JavaScript), donde los objetos pueden derivar de otros objetos sin una clase “molde” tradicional.
+Una **instancia** es precisamente un **objeto** creado a partir de una clase: “instancia de la clase X”. No todos los lenguajes orientados a objetos se basan en clases; existen lenguajes orientados a objetos basados en prototipos (por ejemplo, JavaScript), donde los objetos pueden derivar de otros objetos sin una clase “molde” tradicional.
+**Objeto = Instancia**
 
 
 ## 6. ¿Dónde se almacenan en memoria los objetos? ¿Es igual en todos los lenguajes? ¿Qué es la **recolección de basura**? 
