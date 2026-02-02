@@ -18,9 +18,8 @@ Por favor, escribe en impersonal las respuestas.
 ## 1. ¿Cuáles son las cuatro características básicas de la programación orientada a objetos? Describe brevemente cada una
 
 ### Respuesta 
-La programación orientada a objetos se basa en cuatro características fundamentales que permiten organizar los programas de una manera más natural y organizada. 
-La primera de ellas es la abstracción, que consiste en identificar los elementos importantes de un problema y representarlos mediante clases. Este proceso permite trabajar con ideas más simples, ignorando detalles que no son necesarios en ese momento. De esta forma, se facilita la comprensión de problemas complejos sin necesidad de conocer su funcionamiento interno.
-La segunda característica es la encapsulación, que se refiere a la capacidad de ocultar los datos de un objeto y permitir el acceso únicamente a través de métodos específicos. Esto evita que el estado interno del objeto pueda modificarse de forma incorrecta desde otras partes del programa. En la práctica, esta idea ayuda a mantener el código más seguro y controlado, especialmente para programadores que vienen de C o C++, donde el acceso directo a variables es habitual.
+La abstracción permite trabajar con ideas más simples, ignorando detalles que no son necesarios en ese momento. De esta forma, se facilita la comprensión de problemas complejos sin necesidad de conocer su funcionamiento interno, el resto de características también colaboran en esto.
+La segunda característica es la encapsulación, que se refiere a la capacidad de ocultar los datos de un objeto y permitir el acceso únicamente a través de métodos específicos. Esto evita que el estado interno del objeto pueda modificarse de forma incorrecta desde otras partes del programa. En la práctica, esta idea ayuda a mantener el código más seguro y controlado.
 La herencia es otra característica importante. Esta permite que una clase pueda basarse en otra ya existente, reutilizando su estructura y comportamiento. Gracias a esto, se pueden crear jerarquías de clases donde las más generales sirven como base para otras más específicas. Esta propiedad reduce la repetición de código y facilita la extensión de programas grandes sin tener que reescribir funcionalidades.
 Por último, el polimorfismo permite que diferentes clases respondan de manera distinta a un mismo método. Esto significa que se puede llamar a una misma función, pero la acción concreta que realiza depende del tipo real del objeto. Esta propiedad aporta mucha flexibilidad al programa, ya que permite tratar a distintos objetos de forma uniforme, dejando que cada uno actúe según su naturaleza.
 
@@ -33,12 +32,13 @@ Existen varios lenguajes populares que permiten programar orientado a objetos. U
 También se encuentra C++, que añade orientación a objetos encima del lenguaje C y permite usar clases, herencia y polimorfismo, por lo que resulta familiar para quien viene de C tradicional.
 Además, Python es un lenguaje muy extendido donde prácticamente todo funciona como un objeto, lo que simplifica entender este modelo sin complicaciones técnicas. 
 Por último, C# es otro lenguaje muy utilizado, especialmente en entornos Windows, y aplica la orientación a objetos de forma clara y estructurada. Estos cuatro lenguajes son ejemplos representativos modernos de programación orientada a objetos.
+Java, C#, ¿Rust?, y C++: compiladas, un proceso que el programador es consciente y detecta errores a la vez que traduce el código a una versión de bajo nivel ejecutable.
 
 
 ## 3. Los paradigmas anteriores a la POO, ¿Qué es la **programación estructurada**? y, todavía mejor, ¿Qué es la **programación modular**?
 
 ### Respuesta
-Antes de la programación orientada a objetos, uno de los paradigmas más utilizados era la programación estructurada. Este estilo se basa en dividir un programa en bloques de instrucciones que se ejecutan de forma ordenada, utilizando estructuras como if, while, for y funciones simples. El objetivo principal es evitar el uso excesivo de saltos como goto, que hacían el código difícil de seguir. La programación estructurada busca que el flujo de un programa sea claro, predecible y fácil de entender.
+Antes de la programación orientada a objetos, uno de los paradigmas más utilizados era la programación estructurada. Este estilo se basa en dividir un programa en bloques de instrucciones que se ejecutan de forma ordenada, utilizando estructuras como if, while, for y funciones simples. El objetivo principal es evitar el uso excesivo de saltos como goto, que hacían el código difícil de seguir. La programación estructurada busca que el flujo de un programa sea claro, predecible y fácil de entender, además de que suprime el salto arbitrario.
 Un paso más allá dentro de este enfoque es la programación modular, que consiste en dividir un programa en módulos o partes independientes. Cada módulo tiene una función concreta y se comunica con los demás mediante interfaces bien definidas. Este método mejora la organización del programa, facilita la reutilización de código y permite que diferentes partes del proyecto se desarrollen y mantengan por separado, reduciendo errores y aumentando la claridad general del sistema.
 
 ## 4. ¿Qué tres elementos definen a un objeto en programación orientada a objetos?
@@ -46,7 +46,7 @@ Un paso más allá dentro de este enfoque es la programación modular, que consi
 ### Respuesta
 En programación orientada a objetos, un objeto se define por tres elementos fundamentales. El primero son los atributos, que representan las características o datos que describen al objeto. Por ejemplo, si se piensa en un objeto que representa a una persona, los atributos podrían ser el nombre, la edad o la altura. Estos valores permiten diferenciar un objeto de otro dentro de un mismo programa.
 El segundo elemento son los métodos, que representan las acciones o comportamientos que un objeto puede realizar. Siguiendo el ejemplo anterior, una persona podría tener métodos como caminar, hablar o cumplir años. 
-Finalmente, todo objeto tiene una identidad, que permite distinguirlo de otros incluso si comparten exactamente los mismos atributos. Esta identidad asegura que cada objeto sea una entidad independiente dentro de la ejecución del programa.
+Finalmente, todo objeto tiene una identidad, que permite distinguirlo de otros incluso si comparten exactamente los mismos atributos. Esta identidad asegura que cada objeto sea una entidad independiente dentro de la ejecución del programa. Hay que verlo como que cada objeto tiene una dirección en memoria.
 
 
 ## 5. ¿Qué es una clase? ¿Es lo mismo que un objeto? ¿Qué es una instancia? ¿Todos los lenguajes orientados a objetos manejan el concepto de clase?
@@ -116,7 +116,6 @@ El bytecode es un conjunto de instrucciones independientes del sistema operativo
     
 
 ### Respuesta
-
     class Empleado {
             String dni;
             String nombre;
