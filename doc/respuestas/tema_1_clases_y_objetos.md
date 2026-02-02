@@ -44,7 +44,7 @@ En resumen, Programacion estructurada quita los saltos arbitrarios de la program
 
 ## 4. ¿Qué tres elementos definen a un objeto en programación orientada a objetos?
 
-Un objeto suele definirse por identidad, estado y comportamiento. La identidad es lo que lo hace “ese objeto” concreto, distinto de otros aunque tengan los mismos valores; en muchos lenguajes se asocia a su existencia como entidad en memoria.
+Un objeto suele definirse por **identidad**, **estado**(atributos) y  **comportamiento**(métodos). La identidad es lo que lo hace “ese objeto” concreto, distinto de otros aunque tengan los mismos valores; en muchos lenguajes se asocia a su existencia como entidad en memoria.
 
 El estado son los datos que guarda (sus atributos o campos), que pueden cambiar a lo largo del tiempo. El comportamiento son las operaciones que puede realizar o que se pueden realizar sobre él (sus métodos), normalmente actuando sobre su propio estado o interactuando con otros objetos.
 
