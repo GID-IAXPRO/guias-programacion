@@ -1,3 +1,6 @@
+<style> @page { size: A4; margin: 20mm; } @media print { pre, code { white-space: pre-wrap; word-break: break-word; } /* Forzar salto de página cuando lo necesites */ .page-break { display: block; page-break-after: always; break-after: page; } /* Evitar que bloques largos queden en una sola página */ pre, .code { page-break-inside: avoid; } } </style>
+
+
 # 📘 Guías de Programación II
 
 Este repositorio contiene material de apoyo para la **parte teórica** de
