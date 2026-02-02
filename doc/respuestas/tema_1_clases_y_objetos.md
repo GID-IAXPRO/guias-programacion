@@ -17,9 +17,12 @@ Por favor, escribe en impersonal las respuestas.
 
 ## 1. ¿Cuáles son las cuatro características básicas de la programación orientada a objetos? Describe brevemente cada una
 
-Las cuatro características básicas que suelen citarse en POO son abstracción, encapsulación, herencia y polimorfismo. La abstracción consiste en modelar un concepto del mundo real quedándose con lo esencial para el problema y ocultando el resto; se define qué hace algo sin tener que entrar en todos los detalles internos de cómo lo hace.
-
-La encapsulación agrupa datos y operaciones relacionadas en una unidad (la clase/objeto) y controla el acceso a esos datos, de forma que el estado interno se manipule de manera segura mediante métodos. La herencia permite definir una clase nueva a partir de otra existente, reutilizando y extendiendo comportamiento (relación “es-un” en muchos casos). El polimorfismo permite tratar objetos de diferentes clases relacionadas de forma uniforme (por ejemplo, a través de un tipo común), haciendo que una misma operación se comporte de manera distinta según el objeto concreto.
+Las cuatro características básicas que suelen citarse en POO son **abstracción**, **encapsulación**, **herencia** y **polimorfismo**.
+- La **abstracción** consiste en modelar un concepto del mundo real quedándose con lo esencial para el problema y ocultando el resto; se define qué hace algo sin tener que entrar en todos los detalles internos de cómo lo hace. 
+  - Olvidar detalles para manejar temas complejos y facilitar el mantenimiento del codigo.
+- La **encapsulación** agrupa **datos** y **operaciones** relacionadas en una unidad (la clase/objeto) y controla el acceso a esos datos, de forma que el estado interno se manipule de manera segura mediante métodos. 
+- La **herencia** permite definir una clase nueva a partir de otra existente, reutilizando y extendiendo comportamiento (relación “es-un” en muchos casos). Crear jerarquias.
+- El **polimorfismo** el mismo metodo con el mismo nombre haciendo que una misma operación se comporte de manera distinta según el objeto concreto.
 
 
 ## 2. Cita cuatro lenguajes populares que permitan la programación orientada a objetos
