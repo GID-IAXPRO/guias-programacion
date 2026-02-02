@@ -40,6 +40,8 @@ La programación estructurada es un paradigma que propone construir programas me
 
 La programación modular da un paso más en organización: se divide el programa en módulos con responsabilidades concretas, separando interfaz y detalles internos. Un módulo expone “qué ofrece” (funciones, tipos, constantes) y oculta “cómo lo implementa”, lo que facilita reutilización, mantenimiento y trabajo en equipo. En C, por ejemplo, esto se refleja en pares ``.h`` (interfaz) y ``.c`` (implementación).
 
+En resumen, Programacion estructurada quita los saltos arbitrarios de la programacion antigua y añade estructuras de control.
+
 ## 4. ¿Qué tres elementos definen a un objeto en programación orientada a objetos?
 
 Un objeto suele definirse por identidad, estado y comportamiento. La identidad es lo que lo hace “ese objeto” concreto, distinto de otros aunque tengan los mismos valores; en muchos lenguajes se asocia a su existencia como entidad en memoria.
