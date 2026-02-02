@@ -27,9 +27,11 @@ Las cuatro características básicas que suelen citarse en POO son **abstracció
 
 ## 2. Cita cuatro lenguajes populares que permitan la programación orientada a objetos
 
-Entre los lenguajes populares que soportan POO están Java, C++, C# y Python. En todos ellos se pueden definir tipos compuestos con atributos y métodos, crear instancias (objetos) y organizar el código alrededor de esas entidades.
+Entre los lenguajes populares que soportan POO están: Java, C++, C# y Python. En todos ellos se pueden definir tipos compuestos con atributos y métodos, crear instancias (objetos) y organizar el código alrededor de esas entidades.
 
 Aun así, el “grado” de orientación a objetos varía: por ejemplo, en Java casi todo gira alrededor de clases y objetos, mientras que C++ permite mezclar estilos (procedimental, genérico y orientado a objetos). Python también permite programar de forma orientada a objetos, aunque es flexible y no obliga a usar ese paradigma para todo.
+
+Se pueden agrupar en varios grupos, los **Dinamicos**(Javascript, Pythin, PHP), los **compilados** con **GC**(Java, C#) y **compilados** sin **GC**(C++), estos con seguros en la memoria. Hay otros como Rust que son seguros en memoria pero sin **GC**.
 
 
 ## 3. Los paradigmas anteriores a la POO, ¿Qué es la **programación estructurada**? y, todavía mejor, ¿Qué es la **programación modular**?
