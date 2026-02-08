@@ -1,1 +1,192 @@
 En esta carpeta debes copiar los ficheros de enunciados y editarlos aquí. De esta forma, siempre tendrás los originales intactos.
+TEMA 1. Clases y objetos
+1. ¿Cuáles son las cuatro características básicas de la programación orientada a objetos? Describe brevemente cada una
+
+Respuesta: Abstracción: Olvidarse de detalles para manejar temas complejos o facilitar la modificación.
+Encapsulación: unir información y funciones sobre esa información en un mismo artefacto. También sirve para ocultar partes al exterir.
+Herencia: Sirve para crear jerarquía de tipos.
+Polimorfismo: Misma función, ditintas implementaciones en función del tipo.
+
+2. Cita cuatro lenguajes populares que permitan la programación orientada a objetos
+
+Respuesta: Java, JavaScript, C++, Python.
+
+3. Los paradigmas anteriores a la POO, ¿Qué es la programación estructurada? y, todavía mejor, ¿Qué es la programación modular?
+
+Respuesta: La programación estructurada es un paradigma anterior a la programación orientada a objetos que propone escribir programas de forma clara y ordenada usando únicamente tres estructuras básicas: secuencia, selección y repetición, evitando saltos descontrolados como el goto; por su parte, la programación modular consiste en dividir el programa en módulos o funciones independientes, cada uno encargado de una tarea concreta, de modo que el código resulta más fácil de entender, mantener, depurar y reutilizar.
+
+4. ¿Qué tres elementos definen a un objeto en programación orientada a objetos?
+
+Respuesta: En programación orientada a objetos, un objeto se define por tres elementos fundamentales: sus atributos, que representan las características o datos que describen al objeto; sus métodos, que son las acciones o comportamientos que puede realizar; y su estado, que es la situación concreta del objeto en un momento dado, determinada por los valores actuales de sus atributos.
+
+5. ¿Qué es una clase? ¿Es lo mismo que un objeto? ¿Qué es una instancia? ¿Todos los lenguajes orientados a objetos manejan el concepto de clase?
+
+Respuesta: Una clase es un modelo que describe cómo serán los objetos, definiendo sus atributos y métodos. No es lo mismo que un objeto: la clase es solo la plantilla, mientras que el objeto es una instancia, es decir, un ejemplar concreto creado a partir de esa plantilla. Aunque muchos lenguajes orientados a objetos usan clases, como Java o C++, no todos las necesitan; algunos, como JavaScript, pueden trabajar únicamente con prototipos en lugar de clases tradicionales.
+
+6. ¿Dónde se almacenan en memoria los objetos? ¿Es igual en todos los lenguajes? ¿Qué es la recolección de basura?
+
+Respuesta: Los objetos suelen almacenarse en la memoria dinámica (heap), donde se guardan los datos que se crean durante la ejecución del programa, aunque esto puede variar entre lenguajes y modelos de ejecución. No todos los lenguajes gestionan la memoria igual: por ejemplo, Java y Python crean objetos en el heap y los gestionan automáticamente, mientras que en C++ el programador puede decidir si crea un objeto en stack o en heap. La recolección de basura (garbage collection) es un mecanismo automático que libera la memoria ocupada por objetos que ya no se usan, evitando fugas de memoria y gestionando los recursos sin intervención manual del programador.
+
+7. ¿Qué es un método? ¿Qué es la sobrecarga de métodos?
+
+Respuesta: Un método es una función perteneciente a una clase que define una acción o comportamiento que pueden realizar sus objetos. La sobrecarga de métodos consiste en crear varios métodos con el mismo nombre, pero con diferentes parámetros (ya sea distinta cantidad o distinto tipo). Esto permite que un mismo método se adapte a diferentes situaciones según los datos que reciba, manteniendo un código más claro y organizado.
+
+8. Ejemplo mínimo de clase en Java, que se llame Punto, con dos atributos, x e y, con un método que se llame calculaDistanciaAOrigen, que calcule la distancia a la posición 0,0. Por sencillez, los atributos deben tener visibilidad por defecto. Crea además un ejemplo de uso con una instancia y uso del método
+
+Respuesta: public class Main {
+
+    // Clase Punto dentro del mismo archivo
+    static class Punto {
+
+        // Atributos con visibilidad por defecto
+        float x;
+        float y;
+
+        // Método que calcula la distancia al origen (0,0)
+        double calculaDistanciaAOrigen() {
+            return Math.sqrt(x * x + y * y);
+        }
+    }
+
+    public static void main(String[] args) {
+
+        // Crear instancia de Punto
+        Punto p = new Punto();
+        p.x = 3;
+        p.y = 4;
+
+        // Usar el método
+        double distancia = p.calculaDistanciaAOrigen();
+
+        System.out.println("La distancia al origen es: " + distancia);
+    }
+}
+
+9. ¿Cuál es el punto de entrada en un programa en Java? ¿Qué es static y para qué vale? ¿Sólo se emplea para ese método main? ¿Para qué se combina con final?
+
+Respuesta: El punto de entrada de un programa en Java es el método main, que debe tener exactamente la firma public static void main(String[] args), ya que es el método que la máquina virtual Java ejecuta al iniciar el programa. La palabra clave static significa que el método pertenece a la clase y no a un objeto concreto, por eso main puede ejecutarse sin crear ninguna instancia. No se usa solo en main: también sirve para definir métodos o atributos compartidos entre todas las instancias de una clase. Cuando static se combina con final, se obtiene algo que no cambia y además es compartido, normalmente usado para constantes (por ejemplo, static final double PI = 3.1416;), garantizando que el valor es único y no modificable.
+
+10. Intenta ejecutar un poco de Java de forma básica, con los comandos javac y java. ¿Cómo podemos compilar el programa y ejecutarlo desde linea de comandos? ¿Java es compilado? ¿Qué es la máquina virtual? ¿Qué es el byte-code y los ficheros .class?
+
+Respuesta
+
+11. En el código anterior de la clase Punto ¿Qué es new? ¿Qué es un constructor? Pon un ejemplo de constructor en una clase Empleado que tenga DNI, nombre y apellidos
+Respuesta
+12. ¿Qué es la referencia this? ¿Se llama igual en todos los lenguajes? Pon un ejemplo del uso de this en la clase Punto
+
+Respuesta: La referencia this en Java sirve para referirse al objeto actual, es decir, a la instancia desde la que se está ejecutando un método. Se utiliza cuando queremos distinguir entre atributos del objeto y parámetros con el mismo nombre, o cuando un método necesita pasarse a sí mismo como referencia. No en todos los lenguajes se llama igual: en Java, C++ y JavaScript se usa this, pero en Python se emplea self. Un ejemplo en la clase Punto sería usar this.x y this.y dentro de un constructor para diferenciar los atributos del objeto de los parámetros recibidos.
+
+public class Punto {
+
+    float x;
+    float y;
+
+    // Constructor usando this
+    public Punto(float x, float y) {
+        this.x = x;  // this.x = atributo, x = parámetro
+        this.y = y;
+    }
+
+    double calculaDistanciaAOrigen() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Punto p = new Punto(3, 4);
+        System.out.println(p.calculaDistanciaAOrigen());
+    }
+}
+
+13. Añade ahora otro nuevo método que se llame distanciaA, que reciba un Punto como parámetro y calcule la distancia entre this y el punto proporcionado
+
+Respuesta: public class Main {
+
+    // Clase Punto dentro del mismo archivo
+    static class Punto {
+        float x;
+        float y;
+
+        public Punto(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        // Distancia al origen (0,0)
+        double calculaDistanciaAOrigen() {
+            return Math.sqrt(this.x * this.x + this.y * this.y);
+        }
+
+        // NUEVO: distancia entre este punto y otro punto
+        double distanciaA(Punto otro) {
+            float dx = otro.x - this.x;
+            float dy = otro.y - this.y;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+    }
+
+    public static void main(String[] args) {
+        Punto p1 = new Punto(3, 4);
+        Punto p2 = new Punto(6, 8);
+
+        System.out.println("Distancia de p1 al origen: " + p1.calculaDistanciaAOrigen()); // 5.0
+        System.out.println("Distancia de p1 a p2: " + p1.distanciaA(p2));                 // 5.0
+    }
+}
+
+14. El paso del Punto como parámetro a un método, es por copia o por referencia, es decir, si se cambia el valor de algún atributo del punto pasado como parámetro, dichos cambios afectan al objeto fuera del método? ¿Qué ocurre si en vez de un Punto, se recibiese un entero (int) y dicho entero se modificase dentro de la función?
+
+Respuesta: En Java, los objetos (como Punto) se pasan por valor, pero el valor que se copia es una referencia. Eso significa que dentro del método recibes una copia de la referencia, pero ambas apuntan al mismo objeto en memoria. Por eso, si dentro del método modificas algún atributo del Punto pasado como parámetro, sí afectará al objeto original fuera del método, porque estás trabajando sobre el mismo objeto. En cambio, si pasas un tipo primitivo como un int, este sí se pasa por valor real: se copia su contenido, no una referencia, así que si modificas ese entero dentro del método, el cambio no afecta en absoluto al valor original fuera de la función.
+
+15. ¿Qué es el método toString() en Java? ¿Existe en otros lenguajes? Pon un ejemplo de toString() en la clase Punto en Java
+
+Respuesta: El método toString() en Java es una función heredada de la clase base Object que devuelve una representación en texto del objeto, y se suele sobrescribir para que muestre información útil sobre sus atributos; este concepto existe también en otros lenguajes, como ToString() en C#, toString() en JavaScript o __str__() en Python.
+
+public class Main {
+
+    static class Punto {
+        float x; // visibilidad por defecto (package-private)
+        float y;
+
+        public Punto(float x, float y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        double calculaDistanciaAOrigen() {
+            return Math.sqrt(x * x + y * y);
+        }
+
+        double distanciaA(Punto otro) {
+            float dx = otro.x - this.x;
+            float dy = otro.y - this.y;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        public String toString() {
+            // Opción 1: legible y directa
+            return "Punto(x=" + x + ", y=" + y + ")";
+            // Opción 2 (alternativa): con formato
+            // return String.format("Punto(x=%.2f, y=%.2f)", x, y);
+        }
+    }
+
+    public static void main(String[] args) {
+        Punto p1 = new Punto(3, 4);
+        Punto p2 = new Punto(6.5f, 1.2f);
+
+        // Usos de toString():
+        System.out.println(p1);                 // llama implícitamente a p1.toString()
+        System.out.println(p2.toString());      // llamada explícita
+        System.out.println("P1 -> " + p1);      // concatenación también invoca toString()
+    }
+}
+
+16. Reflexiona: ¿una clase es como un struct en C? ¿Qué le falta al struct para ser como una clase y las variables de ese tipo ser instancias?
+
+Respuesta: Una clase se parece a un struct de C en el sentido de que ambos agrupan datos bajo un mismo tipo, pero no son equivalentes: al struct le falta lo fundamental que tiene una clase, como la capacidad de incluir métodos, encapsulación, visibilidad (public, private), constructores, herencia, polimorfismo y el hecho de que sus variables se consideren realmente instancias con comportamiento asociado. En C, un struct solo contiene datos y no puede tener funciones asociadas ni mecanismos de orientación a objetos, mientras que una clase combina datos y comportamientos formando objetos completos, lo que convierte cada variable de ese tipo en una verdadera instancia con identidad propia.
+
+17. Quitemos un poco de magia a todo esto: ¿Como se podría “emular”, con struct en C, la clase Punto, con su función para calcular la distancia al origen? ¿Qué ha pasado con this?
+
+Respuesta: Para “emular” en C una clase como Punto con su función para calcular la distancia al origen, usaríamos un struct que solo puede contener datos (por ejemplo, float x; float y;) y definiríamos aparte una función externa que reciba un struct Punto o un puntero a él para realizar el cálculo, ya que en C los struct no pueden incluir métodos. La llamada sería algo como distanciaAlOrigen(p) o distanciaAlOrigen(&p), en lugar del estilo orientado a objetos p.calculaDistanciaAOrigen(). En este enfoque, this desaparece, porque en C no existe el concepto de “objeto actual”: es el propio parámetro (el struct o su puntero) el que actúa como “this” de forma manual. En resumen, en C podemos imitar los datos y las funciones, pero no existe un objeto real ni this, ya que el struct no tiene comportamiento asociado.
