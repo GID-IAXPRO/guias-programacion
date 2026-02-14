@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "e76c0f29ad3dfca4",
@@ -185,7 +186,8 @@
   },
   "active": "9533419da5dd3679",
   "lastOpenFiles": [
-    "doc/respuestas/tema_1_clases_y_objetos 1.md",
-    "doc/respuestas/tema_2_encapsulacion 1.md"
+    "doc/enunciados/tema_1_clases_y_objetos.md",
+    "doc/respuestas/tema_2_encapsulacion 1.md",
+    "doc/respuestas/tema_1_clases_y_objetos 1.md"
   ]
 }
