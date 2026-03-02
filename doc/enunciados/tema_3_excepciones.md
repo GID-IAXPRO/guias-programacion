@@ -34,7 +34,7 @@ Por favor, escribe en impersonal las respuestas.
 ### Respuesta
 
 
-## 5. ¿Qué ventajas tiene frente a C, la **"propagación natural"** de las excepciones a través de la pila (*stack*) de llamadas?
+## 5. ¿Qué ventajas tiene frente a C, la **"propagación natural"** de las excepciones a través de la pila (*stack*) de llamadas? Piensa en qué ocurriría si el método `raiz` no fuera llamado directamente desde `main`, sino desde otra función intermedia. ¿Qué tendría que hacer esa función intermedia en C para gestionar el error? ¿Y en Java?
 
 ### Respuesta
 
