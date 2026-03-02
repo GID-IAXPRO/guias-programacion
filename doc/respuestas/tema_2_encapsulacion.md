@@ -295,7 +295,7 @@ La convención real es: **los atributos son siempre privados, y los getters/sett
 
 ## 19. ¿La clase `String` en Java es mutable o inmutable? ¿Qué ocurre al concatenar dos cadenas? ¿Qué debemos hacer si vamos a hacer una operación que implique concatenar muchas veces para construir paso a paso una cadena muy larga?
 
-### La clase **`String` en Java es inmutable**. Una vez creado un objeto `String`, su secuencia de caracteres **no puede modificarse**. Métodos como `toUpperCase()` o `concat()` **no cambian la cadena original**, sino que **devuelven una nueva cadena** con el resultado.
+La clase **`String` en Java es inmutable**. Una vez creado un objeto `String`, su secuencia de caracteres **no puede modificarse**. Métodos como `toUpperCase()` o `concat()` **no cambian la cadena original**, sino que **devuelven una nueva cadena** con el resultado.
 
 Al concatenar dos cadenas con el operador `+` (ej: `"Hola" + "Mundo"`), el compilador internamente crea un **nuevo objeto `String`** que contiene la unión de ambas, dejando las originales intactas. Si esto se hace repetidamente en un bucle, se generan muchos objetos intermedios que son inmediatamente descartados, lo cual es **ineficiente en memoria y rendimiento**.
 
@@ -313,9 +313,9 @@ String resultado = builder.toString(); // Una sola cadena final
 
 ## 20. En POO ¿Cómo se comparan objetos de una misma clase? ¿Por su contenido o por su identidad? ¿Qué es el método equals en Java? ¿Qué hace por defecto? ¿Cómo se deben comparar dos cadenas en Java?
 
-### En POO, los objetos se pueden comparar de dos formas fundamentales: **por identidad** y **por contenido (equivalencia)**. La **identidad** se refiere a si dos referencias apuntan **exactamente al mismo objeto** en memoria (`a == b`). La **equivalencia** se refiere a si dos objetos **distintos** tienen un **estado interno considerado igual** según la lógica de la clase (ej: dos puntos con las mismas coordenadas).
+### En POO, los objetos se pueden comparar de dos formas fundamentales: **por identidad** y **por contenido (equivalencia)**. La **identidad** se refiere a si dos referencias apuntan **exactamente al mismo objeto** en memoria (`a == b`). La **equivalencia** se refiere a si dos objetos **distintos** tienen un **estado interno considerado igual** (valor de los atributos) según la lógica de la clase (ej: dos puntos con las mismas coordenadas).
 
-En Java, el método **`equals(Object obj)`** está diseñado para **comparar objetos por su equivalencia de contenido**. Su implementación por defecto, heredada de la clase `Object`, **compara solo por identidad** (usa `==`). Por tanto, para que `equals` compare por contenido, debe ser **sobrescrito** en la clase, definiendo qué atributos la hacen equivalente.
+En Java, el método **`equals(Object obj)`** está diseñado para **comparar objetos por su equivalencia de contenido**. Su implementación por defecto, heredada de la clase `Object`, **compara solo por identidad** (usa `==`), excepto en clases concretas donde se implementa una comparación por contenido, y ej en String. Por tanto, para que `equals` compare por contenido, debe ser **sobrescrito** en la clase, definiendo qué atributos la hacen equivalente.
 
 **Para comparar dos cadenas (`String`) en Java, se debe usar siempre `equals()`**, no el operador `==`. La clase `String` tiene sobrescrito `equals()` para comparar el secuencia de caracteres. El operador `==` compararía solo si son el mismo objeto en memoria, lo que daría resultados incorrectos en la mayoría de casos, aunque las cadenas contengan el mismo texto.
 
@@ -330,13 +330,16 @@ System.out.println(a == b);      // false (no es el mismo objeto)
 
 ## 21. ¿Qué son las clases "wrapper" en un lenguaje de programación orientado a objetos? ¿Cómo se hace? ¿Es un proceso automático? ¿Qué ventajas tienen? ¿Todos los lenguajes orientados a objetos tienen tipos primitivos y necesitan wrappers?
 
-### Las **clases "wrapper"** (envoltorio) son clases que **encapsulan un tipo de dato primitivo** (como `int`, `double`) dentro de un objeto. En Java, son `Integer` para `int`, `Double` para `double`, `Boolean` para `boolean`, etc. Su propósito es permitir tratar valores primitivos como objetos cuando el contexto lo requiere.
+### Las **clases "wrapper"** (envoltorio) son clases que **encapsulan un tipo de dato primitivo** (como `int`, `double`) dentro de un objeto. En Java, son `Integer` para `int`, `Double` para `double`, `Boolean` para `boolean`, `Character` para `char`, etc. Su propósito es permitir tratar valores primitivos como objetos cuando el contexto lo requiere. 
+
+Ocurren en lenguajes que tienen tipos primitivos, como en Java, mientras que otros lenguajes no tienen tipos primitivos como Python.
 
 Se pueden crear explícitamente con el constructor (ej: `Integer i = new Integer(42);`), pero Java proporciona **autoboxing** y **unboxing**, procesos automáticos que convierten entre primitivos y sus wrappers de forma transparente. El *autoboxing* convierte automáticamente un primitivo a su wrapper (ej: `Integer i = 42;`), y el *unboxing* realiza la conversión inversa (ej: `int j = i;`).
 
 **Ventajas principales**:
 1.  **Permiten usar primitivos en contextos que requieren objetos**, como colecciones (`ArrayList<Integer>`) o genéricos.
 2.  **Proporcionan funcionalidad adicional** a través de métodos estáticos (ej: `Integer.parseInt()`, `Double.isNaN()`).
+3.  **Autoboxing/Unboxing**
 
 **No todos los lenguajes tienen tipos primitivos y wrappers**. En Java y C# existen por razones históricas de eficiencia. En cambio, en lenguajes como **Python** o **JavaScript**, todos los datos (incluidos números y booleanos) son **objetos** desde el principio, por lo que no necesitan wrappers. En **C++**, no existe esta distinción: los tipos básicos no tienen wrappers; se pueden usar plantillas (`template`) directamente con ellos.
 
@@ -345,7 +348,7 @@ Se pueden crear explícitamente con el constructor (ej: `Integer i = new Integer
 
 ### Un **tipo de dato enumerado** es un tipo que define un **conjunto fijo de constantes con nombre**, representando todos los valores posibles que una variable de ese tipo puede tomar. Se usa para mejorar la legibilidad y seguridad del código, reemplazando "números mágicos" o cadenas.
 
-En Java, **sí, un `enum` es una clase especial**. Se declara con la palabra clave `enum`, pero el compilador la traduce a una clase que extiende `java.lang.Enum`. Puede tener atributos, métodos, constructores (siempre privados) e implementar interfaces, pero no puede heredar de otra clase.
+En Java, **sí, un `enum` es una clase especial**, cuyas instancias son finitas conocidas de antemano, y tienen un nombre cada una (valor del enumerado). Se declara con la palabra clave `enum`, pero el compilador la traduce a una clase que extiende `java.lang.Enum`. Puede tener atributos, métodos, constructores (siempre privados) e implementar interfaces, pero no puede heredar de otra clase.
 
 **Ventajas en términos de encapsulación**:
 1.  **Seguridad de tipos**: El compilador garantiza que solo se usen las constantes definidas, evitando valores inválidos. Por ejemplo, un `enum Dia { LUNES, MARTES... }` solo acepta esos valores, no cualquier cadena o número.
@@ -367,7 +370,14 @@ En Java, **sí, un `enum` es una clase especial**. Se declara con la palabra cla
 3.  **Instancias controladas**: La clase `enum` garantiza que solo existen las instancias definidas en su declaración, actuando como un **Singleton** para cada constante. No se pueden crear instancias adicionales desde fuera, lo que protege la integridad del conjunto de valores.
 
 
-## 23. Crea un tipo enumerado en Java que se llame `Mes`, con doce posibles instancias y que además proporcione métodos para obtener cuántos días tiene ese mes, el ordinal de ese mes en el año (1-12), empleando atributos privados y constructores del tipo enumerado. Añade además cuatro métodos para devolver si ese mes tiene algunos días de invierno, primavera, verano u otoño, indicando con un booleano el hemisferio (norte o sur, parámetro `enHemisferioNorte`). Es decir: `esDePrimavera(boolean esHemisferioNorte)`, `esDeVerano(boolean esHemisferioNorte)`, `esDeOtoño(boolean esHemisferioNorte)`, `esDeInvierno(boolean esHemisferioNorte)`
+## 23. Crea un tipo enumerado en Java que se llame Mes, con doce posibles instancias y que además proporcione métodos para obtener cuántos días tiene ese mes, el ordinal de ese mes en el año (1-12), empleando atributos privados y constructores del tipo enumerado.
+
+## Respuesta sobre el Tipo Enumerado Mes en Java
+
+Para implementar un tipo enumerado llamado `Mes` en Java que cumpla con los requisitos especificados, se debe crear una enumeración que contenga los doce meses del año. La encapsulación se aplica mediante la declaración de atributos privados que almacenen información relevante para cada mes, como su número de días y su posición ordinal en el año. Estos atributos deben ser definidos como campos privados dentro de la enumeración, lo que garantiza que solo puedan ser accedidos a través de los métodos públicos que se proporcionen.
+
+La implementación requiere que cada constante del enumerado invoque un constructor privado que reciba los valores específicos para cada mes. Por ejemplo, `ENERO` puede construirse con 31 días y ordinal 1, mientras que `FEBRERO` se construiría con 28 días (o 29 para año bisiesto, aunque en este caso se puede optar por 28 como valor estándar) y ordinal 2. Este enfoque permite que cada instancia del enumerado encapsule sus propios datos, manteniendo la coherencia y la seguridad de la información.
+
 ```java
 public enum Mes {
     ENERO(31, 1),
@@ -382,54 +392,98 @@ public enum Mes {
     OCTUBRE(31, 10),
     NOVIEMBRE(30, 11),
     DICIEMBRE(31, 12);
-
+    
     private final int dias;
-    private final int ordinalAnio;
-
-    Mes(int dias, int ordinalAnio) {
+    private final int ordinal;
+    
+    private Mes(int dias, int ordinal) {
         this.dias = dias;
-        this.ordinalAnio = ordinalAnio;
+        this.ordinal = ordinal;
     }
-
+    
     public int getDias() {
-        return dias;
+        return this.dias;
     }
-
-    public int getOrdinalAnio() {
-        return ordinalAnio;
-    }
-
-    // Métodos para estaciones según hemisferio
-    public boolean esDePrimavera(boolean enHemisferioNorte) {
-        int mes = this.ordinalAnio;
-        return (enHemisferioNorte && (mes == 3 || mes == 4 || mes == 5)) ||
-               (!enHemisferioNorte && (mes == 9 || mes == 10 || mes == 11));
-    }
-
-    public boolean esDeVerano(boolean enHemisferioNorte) {
-        int mes = this.ordinalAnio;
-        return (enHemisferioNorte && (mes == 6 || mes == 7 || mes == 8)) ||
-               (!enHemisferioNorte && (mes == 12 || mes == 1 || mes == 2));
-    }
-
-    public boolean esDeOtonio(boolean enHemisferioNorte) {
-        int mes = this.ordinalAnio;
-        return (enHemisferioNorte && (mes == 9 || mes == 10 || mes == 11)) ||
-               (!enHemisferioNorte && (mes == 3 || mes == 4 || mes == 5));
-    }
-
-    public boolean esDeInvierno(boolean enHemisferioNorte) {
-        int mes = this.ordinalAnio;
-        return (enHemisferioNorte && (mes == 12 || mes == 1 || mes == 2)) ||
-               (!enHemisferioNorte && (mes == 6 || mes == 7 || mes == 8));
+    
+    public int getOrdinal() {
+        return this.ordinal;
     }
 }
 ```
 
-**Explicación de la encapsulación**:
-- Los atributos `dias` y `ordinalAnio` son `private final`, encapsulando los datos de cada constante.
-- El constructor es **implícitamente privado** (no se puede declarar público en un `enum`), asegurando que no se puedan crear más instancias fuera de las doce definidas.
-- Los getters `getDias()` y `getOrdinalAnio()` proporcionan acceso controlado a los datos encapsulados.
-- Los métodos de estaciones encapsulan la lógica de asignación según el mes y el hemisferio, usando los atributos internos sin exponerlos directamente.
+Para proporcionar acceso controlado a los atributos encapsulados, se deben implementar métodos públicos observadores (getters) que devuelvan los valores almacenados. El método `getDias()` retorna la cantidad de días del mes, mientras que `getOrdinal()` devuelve su posición numérica en el año. Estos métodos actúan como interfaz controlada hacia los datos internos, manteniendo el principio de encapsulación al no permitir modificaciones directas de los atributos. Además, el uso de atributos marcados como `final` asegura que los valores asignados durante la construcción no puedan ser alterados posteriormente, lo que refuerza la inmutabilidad y consistencia de cada instancia del enumerado.
 
-### Respuesta
+## 24. Añade a la clase Mes del ejercicio anterior cuatro métodos para devolver si ese mes tiene algunos días de invierno, primavera, verano u otoño, indicando con un booleano el hemisferio (norte o sur, parámetro enHemisferioNorte). Es decir: esDePrimavera(boolean esHemisferioNorte), esDeVerano(boolean esHemisferioNorte), esDeOtoño(boolean esHemisferioNorte), esDeInvierno(boolean esHemisferioNorte).
+
+## Ampliación del Tipo Enumerado Mes con Métodos de Estación
+
+Para incorporar la funcionalidad que determina si un mes pertenece a una estación específica según el hemisferio, se deben añadir cuatro métodos booleanos a la enumeración `Mes`. Cada método recibirá un parámetro `boolean` que indica si la evaluación debe realizarse para el hemisferio norte (`true`) o para el hemisferio sur (`false`). La lógica interna debe contemplar la distribución de las estaciones en cada hemisferio, considerando que los meses que abarcan cada estación son opuestos entre ambos hemisferios.
+
+En el hemisferio norte, la primavera comprende marzo, abril y mayo; el verano incluye junio, julio y agosto; el otoño abarca septiembre, octubre y noviembre; mientras que el invierno corresponde a diciembre, enero y febrero. Para el hemisferio sur, esta distribución se invierte completamente: la primavera ocurre en septiembre, octubre y noviembre; el verano en diciembre, enero y febrero; el otoño en marzo, abril y mayo; y el invierno en junio, julio y agosto. Esta relación de opuestos debe reflejarse en la implementación mediante condicionales que evalúen el hemisferio solicitado.
+
+```java
+public enum Mes {
+    ENERO(31, 1),
+    FEBRERO(28, 2),
+    MARZO(31, 3),
+    ABRIL(30, 4),
+    MAYO(31, 5),
+    JUNIO(30, 6),
+    JULIO(31, 7),
+    AGOSTO(31, 8),
+    SEPTIEMBRE(30, 9),
+    OCTUBRE(31, 10),
+    NOVIEMBRE(30, 11),
+    DICIEMBRE(31, 12);
+    
+    private final int dias;
+    private final int ordinal;
+    
+    private Mes(int dias, int ordinal) {
+        this.dias = dias;
+        this.ordinal = ordinal;
+    }
+    
+    public int getDias() {
+        return this.dias;
+    }
+    
+    public int getOrdinal() {
+        return this.ordinal;
+    }
+    
+    public boolean esDePrimavera(boolean enHemisferioNorte) {
+        if (enHemisferioNorte) {
+            return this == MARZO || this == ABRIL || this == MAYO;
+        } else {
+            return this == SEPTIEMBRE || this == OCTUBRE || this == NOVIEMBRE;
+        }
+    }
+    
+    public boolean esDeVerano(boolean enHemisferioNorte) {
+        if (enHemisferioNorte) {
+            return this == JUNIO || this == JULIO || this == AGOSTO;
+        } else {
+            return this == DICIEMBRE || this == ENERO || this == FEBRERO;
+        }
+    }
+    
+    public boolean esDeOtono(boolean enHemisferioNorte) {
+        if (enHemisferioNorte) {
+            return this == SEPTIEMBRE || this == OCTUBRE || this == NOVIEMBRE;
+        } else {
+            return this == MARZO || this == ABRIL || this == MAYO;
+        }
+    }
+    
+    public boolean esDeInvierno(boolean enHemisferioNorte) {
+        if (enHemisferioNorte) {
+            return this == DICIEMBRE || this == ENERO || this == FEBRERO;
+        } else {
+            return this == JUNIO || this == JULIO || this == AGOSTO;
+        }
+    }
+}
+```
+
+La implementación presentada utiliza comparaciones directas con las constantes del enumerado para determinar la pertenencia a una estación. Cada método encapsula la lógica específica según el hemisferio, devolviendo `true` únicamente cuando el mes actual coincide con los meses que constituyen la estación consultada. Esta aproximación mantiene la legibilidad del código y facilita su mantenimiento, ya que las condiciones están claramente expresadas mediante la comparación de instancias. Además, al tratarse de métodos de instancia, cada objeto `Mes` puede responder adecuadamente a las consultas sobre su pertenencia a las distintas estaciones, proporcionando una interfaz coherente y bien encapsulada para esta funcionalidad estacional.
