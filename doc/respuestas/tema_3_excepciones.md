@@ -54,11 +54,15 @@ double raiz(double numero) {
     if (numero < 0) {
         errno = EDOM;  // Indicar error de dominio
         return -1.0;   // Valor especial para indicar error
-    }
+    }else{
+            error = 0;
+            return sqrt(num);
+}
     return sqrt(numero);
 }
 
 int main() {
+    int error = 0;
     double valor = raiz(-5.0);
     if (errno == EDOM) {
         printf("Error: no se puede calcular raíz de número negativo\n");
@@ -76,7 +80,7 @@ Ambos enfoques presentan limitaciones, como la necesidad de verificar explícita
 
 Una **excepción** es un evento anómalo o inesperado que ocurre durante la ejecución de un programa y que interrumpe el flujo normal de instrucciones. Representa una situación excepcional que el código no puede resolver en el contexto donde se produce, como errores de entrada/salida, condiciones de índice fuera de rango, argumentos inválidos o problemas de recursos. En lenguajes como Java, las excepciones son objetos que encapsulan información sobre el error, incluyendo su tipo, un mensaje descriptivo y la traza de la pila de llamadas que permite localizar el punto exacto donde se originó.
 
-Cuando un programador implementa funciones, utiliza excepciones para **separar la lógica principal del tratamiento de errores**, evitando que el código se llene de comprobaciones condicionales que dificulten su lectura y mantenimiento. En lugar de devolver códigos de error que el llamante debe verificar, la función "lanza" una excepción cuando detecta una situación problemática, delegando la responsabilidad de manejar el error en el nivel superior que corresponda. Esto permite que la función exprese claramente su contrato: en condiciones normales devuelve un resultado, pero si algo falla, interrumpe su ejecución y notifica del problema mediante una excepción.
+Cuando un programador implementa funciones, utiliza excepciones para **separar la lógica principal del tratamiento de errores**, evitando que el código se llene de comprobaciones condicionales que dificulten su lectura y mantenimiento. En lugar de devolver códigos de error que el llamante debe verificar, la función "lanza" una excepción cuando detecta una situación problemática, delegando la responsabilidad de manejar el error en el nivel superior que corresponda. Esto permite que la función exprese claramente su contrato: en condiciones normales devuelve un resultado, pero si algo falla, interrumpe su ejecución y notifica del problema mediante una excepción. Cuando llamamos facilita separar la lógica normal de la de reacción o manejo de la situación errónea.
 
 Por parte de quien llama a una función, el uso de excepciones permite **centralizar y organizar el manejo de errores** en bloques específicos, normalmente mediante estructuras `try-catch`. El programador puede decidir en qué nivel desea capturar cada tipo de excepción, pudiendo ignorar temporalmente algunas para que sean gestionadas más arriba en la pila de llamadas, o bien transformar un tipo de excepción en otro para ofrecer una abstracción más adecuada. Este mecanismo proporciona un flujo de control limpio donde el código que resuelve el problema principal no se mezcla con el código que gestiona las situaciones excepcionales.
 
