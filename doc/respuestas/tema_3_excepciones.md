@@ -143,7 +143,7 @@ Sí, es posible y muy recomendable **crear excepciones personalizadas** para rep
 
 ## 7. En relación con las ventajas de la encapsulación, comparando el ejemplo en C con Java. ¿Qué **información esencial** lleva cualquier **objeto excepción** que es muy útil tener cuando se llega a un manejador?
 
-Cualquier objeto excepción en Java encapsula información esencial que resulta de gran utilidad cuando el error llega al manejador. La más relevante es la **traza de la pila** (*stack trace*), que contiene el listado completo de las llamadas a métodos desde el punto donde se lanzó la excepción hasta el lugar donde se captura, incluyendo los nombres de las clases, métodos y números de línea. Esta información, accesible mediante métodos como `printStackTrace()` o `getStackTrace()`, permite reconstruir exactamente el camino de ejecución que condujo al error, algo que en C requeriría instrumentar manualmente cada función para transmitir el contexto.
+Cualquier objeto excepción en Java encapsula información esencial que resulta de gran utilidad cuando el error llega al manejador. La más relevante es la **traza de la pila** (*stack trace*), sirve para depurar y que contiene el listado completo de las llamadas a métodos desde el punto donde se lanzó la excepción hasta el lugar donde se captura, incluyendo los nombres de las clases, métodos y números de línea. Esta información, accesible mediante métodos como `printStackTrace()` o `getStackTrace()`, permite reconstruir exactamente el camino de ejecución que condujo al error, algo que en C requeriría instrumentar manualmente cada función para transmitir el contexto.
 
 Además de la traza, todo objeto excepción incluye un **mensaje descriptivo** que se establece en el momento de su creación, normalmente proporcionado como argumento al constructor. Este mensaje, recuperable mediante `getMessage()`, debe contener una explicación legible de la causa del error, como "No se puede calcular raíz de número negativo". Opcionalmente, las excepciones pueden encapsular una **causa subyacente** (*cause*), que es otra excepción que originó la actual, permitiendo construir cadenas de errores donde una excepción de más bajo nivel es la raíz del problema.
 
@@ -171,6 +171,10 @@ try {
 ```
 
 En este código, si se lanza una `IllegalArgumentException`, se ejecuta el primer bloque `catch` y los restantes se ignoran completamente. Si se lanzara otro tipo de excepción no contemplada específicamente pero que herede de `RuntimeException`, se ejecutaría el último bloque por ser el más general. Esta jerarquía de captura proporciona flexibilidad para manejar errores con distintos niveles de especificidad.
+
+- Sólo se ejecuta uno.
+- Se va comprobando por orden hasta el primero que encaje.
+- Se deben poner del más específico al más general, porque sino, los catch para excepciones específicas no se ejecutarán.
 
 
 ## 9. Si las excepciones producen rupturas en el código llamador, ¿cómo podemos garantizar que se ejecuta siempre finalmente un código necesario para cierre de ficheros, liberacion de recursos, antes de que continúe propagándose la excepción? Pon un ejemplo en Java con `finally`, tanto con `catch` como sin él.
@@ -261,6 +265,9 @@ public class EjemploReturnFinally {
 
 La ejecución de este código mostrará primero "Dentro del try", después "Esto se ejecuta SIEMPRE, incluso antes del return", y finalmente "Resultado: 1". Esta garantía de ejecución hace que `finally` sea un mecanismo fiable para tareas de limpieza, incluso en situaciones donde el flujo normal del programa incluye retornos anticipados.
 
+Si, puede ir sin catch:
+- Se ejecuta, puesto que es finally.
+- Si hubo excepción, como no tenemos catch, se propaga.
 
 ## 11. En Java, qué son las excepciones **"controladas"** y las **"no controladas"**? ¿Qué papel juega `RuntimeException`? Pon un ejemplo de excepciones típicas controladas y no controladas que incluso nosotros mismos podríamos usar. Haz dos listas con 3 o 4 ejemplos de situación donde se suele preferir una excepción controlada y donde se suele preferir una excepción no controlada.
 
@@ -392,6 +399,10 @@ public void actualizarCliente(Cliente cliente) throws ServicioException {
 
 En este caso, la excepción original `SQLException` queda disponible mediante el método `getCause()` de la nueva excepción, permitiendo que niveles superiores accedan tanto al error de negocio como al detalle técnico subyacente. Esta práctica mantiene la trazabilidad completa del error mientras se adapta al vocabulario de la capa actual.
 
+- Relanzar la misma excepción
+- Envolver en otra excepción nueva (será causa).
+- Lanzar otra excepción totalmente nueva.
+
 
 ## 17. ¿En qué consiste que una excepción sea la **"causa"** de otra excepción? Pon un ejemplo en Java, donde capturemos una excepción de bajo nivel y la encapsulemos en otra personalizada de alto nivel. Cuando una excepción sale por pantalla y tiene una causa, ¿se ve?
 
@@ -445,3 +456,7 @@ Caused by: java.sql.SQLException: Error de sintaxis en SQL
 ```
 
 Esta visualización con el "Caused by" es extremadamente útil para entender la secuencia completa de errores y localizar rápidamente el origen del problema, ya que muestra explícitamente la relación causal entre las diferentes excepciones que se han ido encapsulando.
+
+Causa de excepción:
+- Se ve cuando la excepción se muestra por pantalla.
+- Se puede obtener con el método `getCause()`.
