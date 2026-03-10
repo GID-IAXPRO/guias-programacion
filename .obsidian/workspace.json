@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "doc/respuestas/tema_2_encapsulacion 1.md",
+                "file": "doc/respuestas/tema_3_excepciones.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "tema_2_encapsulacion 1"
+              "title": "tema_3_excepciones"
             }
           }
         ]
@@ -185,8 +185,8 @@
   },
   "active": "9533419da5dd3679",
   "lastOpenFiles": [
-    "doc/enunciados/tema_1_clases_y_objetos.md",
     "doc/respuestas/tema_2_encapsulacion 1.md",
+    "doc/enunciados/tema_1_clases_y_objetos.md",
     "doc/respuestas/tema_1_clases_y_objetos 1.md"
   ]
 }
