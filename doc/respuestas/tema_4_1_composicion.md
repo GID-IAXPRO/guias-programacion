@@ -20,15 +20,15 @@ Por favor, escribe en impersonal las respuestas.
 En C, la composición se implementa mediante la inclusión de estructuras como campos de otras estructuras, estableciendo relaciones de "tiene-un" entre los tipos de datos. Para el ejemplo propuesto, se define primero la estructura `Punto` que contiene las coordenadas, y luego la estructura `Linea` que está compuesta por dos puntos:
 
 ```c
-typedef struct {
+struct Punto {
     float x;
     float y;
-} Punto;
+}
 
-typedef struct {
-    Punto inicio;
-    Punto fin;
-} Linea;
+struct Linea{
+    Punto p1;
+    Punto p2;
+}
 ```
 
 Para calcular la distancia entre dos puntos, se implementa una función que recibe dos estructuras `Punto` y aplica el teorema de Pitágoras. La longitud de una línea se obtiene llamando a esta función con los puntos que la componen:
@@ -43,10 +43,9 @@ float distancia(Punto p1, Punto p2) {
 }
 
 float longitudLinea(Linea l) {
-    return distancia(l.inicio, l.fin);
+    return distancia(l.p1, l.p2);
 }
 ```
-
 Este enfoque permite construir tipos de datos complejos a partir de otros más simples, manteniendo una clara jerarquía de composición. La ventaja principal es que las funciones que operan sobre los tipos básicos pueden reutilizarse para calcular propiedades de las estructuras compuestas, como se demuestra al usar `distancia` dentro de `longitudLinea`.
 
 
@@ -56,8 +55,8 @@ En Java, la composición orientada a objetos se implementa mediante la inclusió
 
 ```java
 public class Punto {
-    private final double x;
-    private final double y;
+    private double x;
+    private double y;
     
     public Punto(double x, double y) {
         this.x = x;
@@ -76,16 +75,16 @@ La clase `Linea` se compone de dos objetos `Punto` y también se diseña como in
 
 ```java
 public class Linea {
-    private final Punto inicio;
-    private final Punto fin;
+    private Punto p1;
+    private Punto p2;
     
-    public Linea(Punto inicio, Punto fin) {
+    public Linea(Punto p1, Punto p2) {
         this.inicio = inicio;
         this.fin = fin;
     }
     
     public double longitud() {
-        return inicio.distancia(fin);
+        return this.p1.distancia(this.p2);
     }
 }
 ```
@@ -99,6 +98,8 @@ La multiplicidad en composición indica cuántas instancias de una clase pueden 
 
 En el ejemplo de `Linea` y `Punto`, la multiplicidad de `Linea` a `Punto` es **1..2**, lo que significa que una línea está compuesta exactamente por dos puntos (su inicio y su fin). Esta cardinalidad refleja que una línea necesita ambos extremos para ser definida como tal, y ambos son creados y destruidos con la línea. En la dirección inversa, de `Punto` a `Linea`, la multiplicidad es **0..***, indicando que un punto puede pertenecer a ninguna, una o múltiples líneas (por ejemplo, un punto podría ser el inicio de una línea y también el fin de otra, o incluso compartirse entre varias líneas como vértice común). Esta asimetría en las multiplicidades muestra que, aunque la línea depende existencialmente de sus puntos, los puntos tienen una existencia independiente y pueden participar en múltiples relaciones de composición.
 
+- 1 línea se relaciona como mínimo con **2** Puntos y como máximo con **2** Puntos.
+- 1 Punto se relaciona como mínimo con **0** Lineas y como máximo con **muchas** Lineas.
 
 ## 4. ¿Qué significa composición **fuerte** y composición **débil**? ¿Qué consecuencia implica en relación al ciclo de vida de los objetos? Indica a cuál solemos referirnos como **"asociación o agregación"** y a cuál como **"composición"** propiamente.
 
@@ -108,6 +109,11 @@ La composición débil, conocida como **agregación**, representa una relación 
 
 En el ejemplo anterior de `Linea` y `Punto`, la relación es una agregación (composición débil) porque los puntos pueden existir antes de formar parte de la línea y pueden seguir existiendo después, además de poder compartirse entre diferentes líneas. Si se quisiera convertir en composición fuerte, los puntos deberían crearse exclusivamente dentro de la línea y destruirse con ella, lo que en este caso no sería adecuado porque un punto podría necesitar ser reutilizado. Esta distinción resulta fundamental en el diseño orientado a objetos para reflejar correctamente las dependencias existenciales entre las clases y determinar quién es responsable de la creación y destrucción de los objetos.
 
+Fuerte --> El contenedor (ej. Linea) es el que crea los objetos que contiene (ej. Punto) y estos no viven más allá del contenedor. El ciclo de vida del contenido está vinculado al contenedor.
+
+Débil --> El contenedor y contenido tienen ciclos de vida independientes. (ej. Los objetos Punto pueden vivir sin estar en objetos Linea)
+
+Usamos rombos para expresar que el contenedor es básicamente un contenedor y poco más.
 
 ## 5. Cuando una clase usa a otra al recibirla o devolverla como parámetro en algún método, al hacer `new` dentro de un método, o al usarlas como variables locales, ¿hablamos de composición o de **"dependencia"**?
 
@@ -122,12 +128,12 @@ Para implementar la **composición fuerte** entre `Linea` y `Punto`, la clase `L
 
 ```java
 public class LineaFuerte {
-    private final Punto inicio;
-    private final Punto fin;
+    private Punto p1;
+    private Punto p2;
     
     public LineaFuerte(double x1, double y1, double x2, double y2) {
-        this.inicio = new Punto(x1, y1);
-        this.fin = new Punto(x2, y2);
+        this.p1 = new Punto(x1, y1);
+        this.p2 = new Punto(x2, y2);
     }
     
     public double longitud() {
@@ -142,16 +148,16 @@ Para la **composición débil (agregación)**, la clase `Linea` recibe los punto
 
 ```java
 public class LineaDebil {
-    private final Punto inicio;
-    private final Punto fin;
+    private Punto p1;
+    private Punto p2;
     
-    public LineaDebil(Punto inicio, Punto fin) {
-        this.inicio = inicio;
-        this.fin = fin;
+    public LineaDebil(Punto p1, Punto p2) {
+        this.p1 = p1;
+        this.p2 = p2;
     }
     
     public double longitud() {
-        return inicio.distancia(fin);
+        return this.p1.distancia(this.p2);
     }
     
     public Punto getInicio() {
@@ -172,6 +178,7 @@ En Java, la destrucción explícita de objetos no existe como tal, ya que el len
 
 En el ejemplo de `LineaFuerte`, los objetos `Punto` son creados dentro del constructor y almacenados como referencias privadas. Mientras exista al menos una referencia a la línea desde el exterior, tanto la línea como sus puntos permanecerán en memoria. Cuando la línea pierda su última referencia externa, todo el grafo de objetos formado por la línea y sus puntos se vuelve inalcanzable, y el recolector de basura los marcará para su eliminación. Este comportamiento satisface automáticamente la semántica de la composición fuerte: los puntos viven y mueren con su contenedor sin necesidad de destrucción explícita, siempre que se garantice que no hay referencias externas a ellos (lo cual se logra no exponiendo los puntos mediante getters o devolviendo copias defensivas en caso necesario).
 
+En Java, la vida termina cuando es inaccesible, y en el ejemplo, ocurre cuando Linea deja de serlo a su vez. Por lo tanto, cuando Linea "es basura", también lo serán sus puntos y serán eliminados de memoria por el recolector de basura.
 
 ## 8. Pon un ejemplo de composicion débil entre un departamento que tiene varios profesores. Implementa dos composiciones a la vez: entre el departamento y todos sus profesores y entre el departamento y su director, que es un profesor del departamento. Siempre debe haber un director en el departamento desde el inicio. Lanza excepciones si se viola la invariante. Emplea arrays primitivos de Java, estilo `Profesor[]`, con máximo 50, pero no rompas la encapsulación, no desveles que estás empleando un array, permite añadir un `Profesor` al final de la lista, y eliminar un profesor dada su posición. Da acceso a los profesores con un método para saber cuántos hay y otro para obtener un profesor por posición. El director se puede cambiar por otro profesor del departamento. Sin embargo, ten en cuenta esta invariante de clase: el director debe formar siempre parte de la lista de profesores, es decir, ten cuidado al cambiar el director o al eliminar un profesor.
 
@@ -181,10 +188,20 @@ A continuación se presenta la implementación de la clase `Departamento` que ma
 import java.util.Objects;
 
 public class Departamento {
-    private static final int MAX_PROFESORES = 50;
-    private Profesor[] profesores;
-    private int numProfesores;
+//composicion debil
+//1 departamento como minimo 0 y como maximo muchos Profesor(50)
+//1 profesor como minimo 0 y como maximo muchos departamentos
+    private Profesor[] profesores = new Profesor[50];
+    private int numProfesor = 0;
+
+//composicion debil 2:
+//1 departamento tiene como minimo 1 y como maximo 1 profesor director
+// 1 profesor puede ser director como minimo de 0 y como maximo de muchos departamentos
     private Profesor director;
+}
+public class Profesor{
+
+}
     
     public Departamento(Profesor director) {
         if (director == null) {
@@ -319,6 +336,10 @@ public class Profesor {
 
 Esta implementación cumple con los requisitos establecidos. La clase `Departamento` mantiene dos relaciones de composición débil: una con el conjunto de profesores (agregación) y otra con el director, que es un profesor específico dentro de ese conjunto. La encapsulación se preserva ocultando el array mediante métodos controlados para añadir, eliminar y acceder a los profesores. Las invariantes se protegen lanzando excepciones cuando se intenta eliminar al director actual o cuando se pretende establecer un director que no pertenece al departamento. Los métodos públicos permiten obtener el número de profesores y acceder a ellos por posición sin exponer el array subyacente, manteniendo así el principio de ocultación de información.
 
+- Hay 2 composiciones débiles.
+- No se expone el array al exterior (imposible garantizar invariante de clase).
+- En los métodos que gestionan el departamento se controla que no se viole la invariante de clase.
+
 
 ## 9. En Java, existen también `List`, cambia y muestra cómo sería el código anterior empleando `List` en vez de arrays primitivos. ¿Qué parte del código original te has ahorrado? Además, fíjate en el método `getProfesor(int pos)`: si en su lugar existiera un método que devolviera todos los profesores a la vez, ¿qué problema tendría devolver directamente la lista interna? ¿Cómo lo resolverías?
 
@@ -412,6 +433,10 @@ El código original con arrays requería gestionar manualmente el contador `numP
 
 Si se implementara un método que devolviera todos los profesores a la vez, como `public List<Profesor> getTodosLosProfesores()`, devolver directamente la lista interna `this.profesores` rompería la encapsulación. Quien reciba esa lista podría modificar su contenido (añadiendo o eliminando profesores) sin pasar por los métodos controlados de `Departamento`, violando así las invariantes de clase (como que el director debe estar siempre en la lista). Para resolverlo, se debe devolver una copia defensiva de la lista, típicamente mediante `new ArrayList<>(profesores)` o usando `Collections.unmodifiableList(profesores)` si se quiere una vista de solo lectura. La primera opción crea una copia independiente que no afecta al original, mientras que la segunda lanza excepción ante cualquier intento de modificación, siendo más eficiente pero exponiendo los cambios internos si la lista original se modifica después.
 
+Con List<Profesor>
+1. No cambia la interfaz pública.
+2. Es más fácil implementar algunos métodos, delegando en métodos de List.
+3. Si se devuelve hay que devolver una copia para proteger la invariante de clase.
 
 ## 10. Al igual que ocurre con las excepciones en Java, que pueden encerrar causas (que son excepciones), de forma recursiva, suponen un tipo especial de composiciones, denominadas composiciones recursivas. Pon un ejemplo en Java de una `Persona`, que sea inmutable, y que tiene una madre, que es otra `Persona`. Haz un main con un ejemplo de uso con una familia de personas, desde el nieto hasta la abuela. Enumera algún otro ejemplo clásico de composiciones recursivas.
 
