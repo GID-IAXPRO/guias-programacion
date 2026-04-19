@@ -1,0 +1,204 @@
+Tema 5. Polimorfismo
+1. Brevemente, ¿qué es el "polimorfismo" y para qué sirve en programación orientada a objetos? ¿qué es la "sobreescritura" de métodos?
+🔹 Polimorfismo
+
+👉 Mismo tipo general → distintos comportamientos
+👉 Un Soldado puede ser Zapador o Artillero
+
+✔ Sirve para:
+
+código genérico
+más flexibilidad
+reutilización
+🔹 Sobreescritura (override)
+
+👉 Subclase redefine método del padre
+👉 MISMA firma, distinto comportamiento
+
+💡 Idea: cada objeto responde a su forma
+
+2. ¿En qué consiste la "ligadura dinámica" o "enlace tardío"? ¿qué relación tiene con el polimorfismo? ¿hay que indicarlos explícitamente al programar o depende esto del lenguaje? Compara C++ y Java. Indicalo después también para Python.
+🔹 Ligadura dinámica
+
+👉 El método se decide en tiempo de ejecución
+
+🔹 Relación
+
+👉 Permite el polimorfismo ✔
+
+🔹 Lenguajes
+Java → automático ✔
+C++ → necesita virtual ⚠
+Python → automático ✔ (dinámico)
+
+💡 Idea:
+👉 Se ejecuta el método del objeto real, no del tipo de referencia
+
+3. Pon un ejemplo sencillo en Java, de un Soldado...
+🔹 Idea
+
+👉 Array de Soldado con distintos tipos
+👉 Cada uno ejecuta su saludar()
+
+class Soldado {
+    public void saludar() {
+        System.out.println("Soy soldado");
+    }
+}
+
+class Zapador extends Soldado {
+    public void saludar() {
+        System.out.println("Soy zapador");
+    }
+}
+
+class Artillero extends Soldado {
+    public void saludar() {
+        System.out.println("Soy artillero");
+    }
+}
+
+Soldado[] soldados = {
+    new Zapador(),
+    new Artillero()
+};
+
+for (Soldado s : soldados) {
+    s.saludar();
+}
+4. Si sobreescribo un método, ¿puedo invocar el método base para trabajar a partir de su resultado? ... ¿qué palabra clave del lenguaje has usado para invocar al método de la clase base?
+🔹 Sí ✔
+
+👉 Se puede usar método del padre + añadir comportamiento
+
+🔹 super
+
+👉 Llama al método de la clase base
+
+class Zapador extends Soldado {
+    public void saludar() {
+        super.saludar();
+        System.out.println("ZAPADOR A SUS ORDENES");
+    }
+}
+5. Al sobreescribir un método en Java, ¿qué restricciones existen sobre los tipos de los parámetros y el tipo de retorno? ¿Qué diferencia hay entre sobreescritura (overriding) y sobrecarga (overloading)? ¿Para qué sirve la anotación @Override y por qué es recomendable usarla siempre?
+🔹 Reglas overriding
+
+✔ mismos parámetros
+✔ mismo nombre
+✔ retorno igual o compatible
+
+🔹 Overriding vs Overloading
+Overriding → misma firma, subclase
+Overloading → mismo nombre, distintos parámetros
+🔹 @Override
+
+👉 Indica sobreescritura
+👉 Detecta errores del compilador ✔
+
+💡 Idea:
+👉 Overriding = polimorfismo
+👉 Overloading = comodidad
+
+6. Entonces, cuando se estudia Java, ¿se emplea el polimorfismo desde el principio? Por ejemplo, sobreescribiendo toString o sobreescribiendo equals, ¿ya estoy usando polimorfismo?
+🔹 Sí ✔
+
+👉 Ya se usa desde el inicio
+
+Ejemplos:
+
+toString()
+equals()
+
+💡 Idea:
+👉 Son métodos de Object redefinidos
+
+7. ¿Qué es una "clase abstracta"? ¿Qué es un "método abstracto"? ¿Puedo crear instancias de una clase abstracta? ... ¿Dónde debemos poner abstract?
+🔹 Clase abstracta
+
+👉 No se puede instanciar
+👉 Sirve como base
+
+🔹 Método abstracto
+
+👉 Sin implementación
+👉 Obligatorio en subclases
+
+abstract class Soldado {
+    public abstract void atacar();
+}
+
+💡 Idea:
+👉 Obliga a implementar comportamiento
+
+8. ¿Qué efecto tiene la palabra clave final sobre métodos y clases en Java? ¿Cómo se relaciona con el polimorfismo? ¿Conoces algún ejemplo de clase final en la propia API estándar de Java?
+🔹 final en métodos
+
+👉 No se pueden sobreescribir
+
+🔹 final en clases
+
+👉 No se pueden heredar
+
+💡 Relación con polimorfismo:
+👉 Lo bloquea ❌
+
+💡 Ejemplo:
+
+String → clase final
+9. En Java, qué son las "interfaces"? ¿Son como clases abstractas? ¿Una clase puede implementar más de una interfaz?
+🔹 Interfaces
+
+👉 Contrato de métodos
+
+🔹 Diferencias con abstracta
+
+✔ múltiples interfaces
+✔ sin estado (generalmente)
+
+🔹 Importante
+
+👉 Una clase puede implementar VARIAS ✔
+
+💡 Idea:
+👉 Simulan herencia múltiple
+
+10. Vamos a poner un ejemplo nuevo con polimorfismo...
+🔹 Idea
+
+👉 Punto abstracto
+👉 2D / 3D implementan distinto cálculo
+
+🔹 instanceof + downcasting
+
+👉 comprobar tipo real
+👉 convertir tipo
+
+abstract class Punto {
+    public abstract double distancia(Punto p);
+}
+
+💡 Idea clave:
+👉 Linea no sabe el tipo → solo usa Punto
+
+11. ¿Qué es la "herencia de interfaces" en Java? ¿Existe "herencia múltiple de interfaces"? Pon un ejemplo de una interfaz Fichero...
+🔹 Herencia de interfaces
+
+👉 Una interfaz extiende otra
+
+🔹 Herencia múltiple
+
+✔ Sí en interfaces
+❌ No en clases
+
+interface Fichero {
+    String leer();
+}
+
+interface FicheroEscribible extends Fichero {
+    void escribir(String c);
+    void eliminar();
+}
+
+💡 Idea final:
+👉 Interfaces = polimorfismo máximo + flexibilidad
