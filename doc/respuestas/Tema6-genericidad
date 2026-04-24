@@ -199,6 +199,7 @@ public static double suma(List<? extends Number> l){
 public static void add(List<? super Integer> l){
     l.add(10);
 }
+
 🔹 Idea final
 
 👉 extends → leer
