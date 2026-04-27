@@ -1,0 +1,199 @@
+TEMA 7. Aspectos funcionales
+1. ¿Qué es un puntero a una función? Pon un ejemplo de código en C, donde se define una función y que reciba una cadena de caracteres como parámetro y devuelva la cadena en mayúsculas. Crea un puntero en una variable local a dicha función llamado aMayusculas e invócala con el puntero.
+Respuesta
+
+Definición
+
+Variable que apunta a una función.
+Permite llamar funciones indirectamente.
+
+Ejemplo C
+
+#include <stdio.h>
+#include <ctype.h>
+
+void aMayusculas(char* s) {
+    for (int i = 0; s[i]; i++) {
+        s[i] = toupper(s[i]);
+    }
+}
+
+int main() {
+    void (*aMayusculasPtr)(char*) = aMayusculas;
+
+    char txt[] = "hola";
+    aMayusculasPtr(txt);
+}
+2. ¿Qué es una función lambda en un lenguaje de programación? Pon un ejemplo similar al anterior en Javascript y otro en Java con funciones lambda. Usa una variable local aMayusculas para apuntar a la función lambda.
+Respuesta
+
+Definición
+
+Función anónima.
+Definida en línea.
+
+JavaScript
+
+let aMayusculas = s => s.toUpperCase();
+
+Java
+
+Function<String,String> aMayusculas =
+    s -> s.toUpperCase();
+3. ¿Qué es el paradigma funcional? ¿Por qué a algunos lenguajes orientados a objetos como Java 8, se les llama multi-paradigma? ¿Qué quiere decir que las funciones son "ciudadanos de primera clase"?
+Respuesta
+
+Paradigma funcional
+
+Funciones como base.
+Sin estado mutable.
+
+Java multi-paradigma
+
+OO + funcional desde Java 8.
+
+Funciones de primera clase
+
+Se almacenan en variables.
+Se pasan como parámetros.
+Se devuelven como resultado.
+4. Explica la sintaxis básica de una función lambda en Java.
+Respuesta
+(parametros) -> expresion
+(parametros) -> { bloque }
+5. Ahora recibamos una función como parámetro a un método y la llamaremos desde dentro. Amplia los ejemplos anteriores de Java y JavaScript con un método llamado transformar...
+Respuesta
+
+Java
+
+static String transformar(String s,
+    Function<String,String> f) {
+    return f.apply(s);
+}
+
+JS
+
+function transformar(s, f) {
+    return f(s);
+}
+6. Ahora, invoca transformar, con una nueva función lambda directamente en la llamada... invierte la cadena
+Respuesta
+
+Java
+
+transformar("hola",
+    s -> new StringBuilder(s).reverse().toString()
+);
+7. ¿Qué se entiende por cierre o "closure" en el contexto de las funciones lambda?...
+Respuesta
+
+Definición
+
+Lambda que usa variables externas.
+
+Ejemplo Java
+
+String extra = "!!!";
+
+Function<String,String> f =
+    s -> s + extra;
+8. Reflexiona: ¿en qué se diferencia entonces una función lambda de los punteros a funciones que hay en C?
+Respuesta
+C: solo referencia a función.
+Java: funciones con estado (closure).
+Java: tipado e interfaces funcionales.
+9. Devolvamos ahora funciones... función crearDescuento(porcentaje)
+Respuesta
+Function<Double,Double> crear(double p) {
+    return x -> x - (x * p / 100);
+}
+
+Closure
+
+p queda guardado en la función.
+10. ¿Qué es una interfaz funcional? ¿Qué requisitos tiene?
+Respuesta
+
+Definición
+
+Una sola función abstracta.
+
+Requisitos
+
+1 método abstracto.
+Puede tener default/static.
+11. Creemos una interfaz funcional... Transformador String → String
+Respuesta
+@FunctionalInterface
+interface Transformador {
+    String transformar(String s);
+}
+12. Interfaz genérica Transformador T → R
+Respuesta
+interface Transformador<T,R> {
+    R transformar(T v);
+}
+
+Ejemplo
+
+Transformador<Double,Integer> t =
+    d -> (int)Math.round(d);
+13. ¿Qué interfaces funcionales predefinidas hay en Java?
+Respuesta
+Function<T,R>
+Consumer<T>
+Supplier<T>
+Predicate<T>
+BiFunction<T,U,R>
+14. forEach lista de Integer mostrando positivos
+Respuesta
+lista.forEach(n -> {
+    if (n > 0)
+        System.out.println(n);
+});
+15. ¿Por qué se usa Consumer<? super T>? Explica PECS
+Respuesta
+
+PECS
+
+Producer → extends
+Consumer → super
+
+Idea
+
+super = más flexibilidad al consumir tipos.
+16. Referencias a métodos Persona.saludar (JS y Java)
+Respuesta
+
+JS
+
+let ref = p.saludar.bind(p);
+ref();
+
+Java
+
+Runnable ref = p::saludar;
+ref.run();
+17. Tipos de referencias a método en Java
+Respuesta
+Estático: Clase::metodo
+Constructor: Clase::new
+Instancia objeto: obj::metodo
+Instancia clase: Clase::metodo
+18. Ordenar lista de Persona por edad y nombre
+Respuesta
+
+Manual
+
+Collections.sort(lista, (a,b) -> {
+    if (a.edad == b.edad)
+        return a.nombre.compareTo(b.nombre);
+    return Integer.compare(a.edad,b.edad);
+});
+
+Comparator
+
+Collections.sort(lista,
+    Comparator.comparingInt(p -> p.edad)
+              .thenComparing(p -> p.nombre)
+);
