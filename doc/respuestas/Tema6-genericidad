@@ -1,0 +1,206 @@
+TEMA 6. Genericidad
+1. Empleando void* en C o Object en Java, pon un ejemplo de una estructura de datos, que empleando un array primitivo, permita alojar cualquier tipo de dato.
+🔹 Idea
+
+👉 “array universal” → guarda TODO tipo de datos
+
+🔹 Ejemplo Java
+Object[] datos = new Object[3];
+
+datos[0] = "hola";
+datos[1] = 10;
+datos[2] = 3.5;
+🔴 Problema
+
+❌ sin control de tipos
+❌ necesita casting
+
+2. Brevemente, ¿Qué significa la programación genérica? ¿Es el ejemplo anterior un ejemplo básico de programación genérica?
+🔹 Definición
+
+👉 Código que funciona con CUALQUIER tipo
+
+🔹 Objetivo
+
+✔ reutilizar código
+✔ evitar duplicar clases
+
+🔴 Respuesta clave
+
+👉 NO es genérico real
+👉 es simulación con Object
+
+3. Indica los problemas respecto al chequeo de tipos, de emplear void* o Object cuando se crean estructuras de datos genéricas.
+🔴 Problemas
+❌ no hay seguridad de tipos
+❌ errores en runtime
+❌ casting obligatorio
+❌ poco legible
+
+💡 Idea:
+👉 “compila pero puede fallar después”
+
+4. Vamos entonces con mecanismos de mejora de la programación genérica ¿Qué son los parámetros de tipo?
+🔹 Definición
+
+👉 variables de tipo: <T>
+
+🔹 Función
+
+✔ definir clases/métodos genéricos
+✔ el tipo se decide al usarlo
+
+💡 Idea:
+👉 “plantilla de tipos”
+
+5. En Java existe "generics", en C++ existen "templates". Pon un ejemplo de uso de programación genérica en ambos...
+🔹 Java vs C++
+🔵 Java
+List<String> l = new ArrayList<>();
+l.add("A");
+
+for (String s : l) {
+    System.out.println(s);
+}
+🔵 C++
+vector<string> v;
+v.push_back("A");
+
+for (string s : v) {
+    cout << s << endl;
+}
+
+✔ ambos garantizan tipo String
+
+6. Sobre el funcionamiento de la programación genérica...
+🔵 Java
+
+👉 type erasure
+✔ elimina tipos en compilación
+✔ todo → Object
+
+🔵 C++
+
+👉 instanciación de templates
+✔ genera código por tipo
+
+💡 diferencia clave:
+👉 Java = borra tipos
+👉 C++ = crea código nuevo
+
+7. Vamos a crear una nueva clase con parámetros de tipo...
+🔹 Idea
+
+👉 Par con 2 tipos distintos
+
+class Par<A,B> {
+    A a;
+    B b;
+
+    Par(A a, B b){
+        this.a = a;
+        this.b = b;
+    }
+
+    A getA(){ return a; }
+    B getB(){ return b; }
+}
+🔹 Uso
+
+👉 media + desviación típica
+
+8. En Java, se pueden declarar parámetros de tipo también a nivel de método...
+🔹 Sin generics
+
+❌ Object → casting
+
+🔹 Con generics
+
+✔ tipo seguro
+✔ sin casting
+✔ ambos parámetros del mismo tipo
+
+public static <T> T seleccionaUno(T a, T b){
+    return Math.random() > 0.5 ? a : b;
+}
+9. ¿Se pueden establecer restricciones en los parámetros de tipo?...
+🔹 Sí → extends
+class Punto<T extends Number> {
+    T x, y;
+}
+🔹 Idea
+
+✔ solo números válidos
+
+🔴 Sin generics
+
+👉 todo es Number
+
+🔵 Type erasure
+
+👉 al final: Number
+
+10. Sobre las soluciones anteriores...
+🔴 Sin generics
+tipos mezclados
+getX → Number
+🟢 Con generics
+tipo consistente
+getX → T exacto
+
+💡 Idea:
+👉 más control + menos errores
+
+11. Hagamos un ejemplo avanzado...
+🔴 Problema
+instanceof ❌
+casting ❌
+🟢 Solución generics
+interface Punto<T> {
+    double distanciaA(T p);
+}
+
+class Punto2D implements Punto<Punto2D> {
+    double x, y;
+
+    public double distanciaA(Punto2D p){
+        return Math.sqrt((x-p.x)*(x-p.x)+(y-p.y)*(y-p.y));
+    }
+}
+
+✔ sin casting
+✔ sin instanceof
+✔ tipo seguro
+
+12. Dado que String es subtipo de Object...
+🔴 List<String> ≠ List<Object>
+
+👉 Java = INVARIANTE
+
+🔵 Arrays
+Object[] a = new String[2];
+
+⚠ peligro:
+👉 error en runtime
+
+🔹 Tipos
+Covariante → acepta subtipos
+Contravariante → supertipos
+Invariante → no relación
+13. Java permite recuperar covarianza y contravarianza...
+🔹 Wildcards ?
+🔵 extends (leer)
+public static double suma(List<? extends Number> l){
+    double s = 0;
+    for(Number n : l) s += n.doubleValue();
+    return s;
+}
+🔵 super (escribir)
+public static void add(List<? super Integer> l){
+    l.add(10);
+}
+
+🔹 Idea final
+
+👉 extends → leer
+👉 super → escribir
