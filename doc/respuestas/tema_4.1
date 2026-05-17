@@ -1,0 +1,370 @@
+## 1. Ejemplo en C con `struct` y composición
+
+En C se puede representar una línea como una estructura que contiene dos puntos, usando `struct` para definir ambos tipos. La relación se expresa como “`Linea` tiene un `Punto` y otro `Punto`”.
+
+```c
+#include <math.h>
+
+typedef struct {
+    double x;
+    double y;
+} Punto;
+
+typedef struct {
+    Punto inicio;
+    Punto fin;
+} Linea;
+
+double distancia_entre_puntos(Punto a, Punto b) {
+    double dx = b.x - a.x;
+    double dy = b.y - a.y;
+    return sqrt(dx * dx + dy * dy);
+}
+
+double longitud_linea(Linea l) {
+    return distancia_entre_puntos(l.inicio, l.fin);
+}
+```
+
+Aquí `Linea` está compuesta por dos `Punto`. La función `distancia_entre_puntos` calcula la distancia euclídea entre dos puntos y `longitud_linea` usa esa función para obtener el tamaño de la línea.
+
+---
+
+## 2. Ejemplo Java de composición con clases inmutables
+
+En Java se puede representar la misma idea con clases. `Punto` encapsula sus coordenadas y no ofrece setters, así se garantiza inmutabilidad. `Linea` contiene dos referencias a `Punto` y también se construye de forma inmutable.
+
+```java
+public final class Punto {
+    private final double x;
+    private final double y;
+
+    public Punto(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double distanciaA(Punto otro) {
+        double dx = otro.x - this.x;
+        double dy = otro.y - this.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+}
+
+public final class Linea {
+    private final Punto inicio;
+    private final Punto fin;
+
+    public Linea(Punto inicio, Punto fin) {
+        this.inicio = inicio;
+        this.fin = fin;
+    }
+
+    public double longitud() {
+        return inicio.distanciaA(fin);
+    }
+}
+```
+
+Gracias a la ocultación de información, una vez creados `Punto` y `Linea` no pueden cambiarse. Esto supera al ejemplo en C porque no se expone el contenido interno de las estructuras y se evita modificar los datos de la línea después de su creación.
+
+---
+
+## 3. Multiplicidad en la composición
+
+La multiplicidad describe cuántos objetos de un tipo participan en la relación con otro tipo. En composición indica, por ejemplo, cuántos `Punto` contiene una `Linea` y cuántas `Linea` puede conocer un `Punto`.
+
+En el ejemplo anterior, la multiplicidad de `Linea` hacia `Punto` es `1..2` o simplemente `2`, porque una línea tiene exactamente dos puntos. La multiplicidad de `Punto` hacia `Linea` es `0..*`, ya que un punto puede formar parte de ninguna línea, de una sola línea o de varias líneas según el modelo.
+
+Así, se puede expresar:
+- `Linea -> Punto`: `2` (o `1..2`)
+- `Punto -> Linea`: `0..*`
+
+---
+
+## 4. Composición fuerte y débil
+
+La composición fuerte implica que el ciclo de vida del componente depende del contenedor. Si el objeto contenedor desaparece, los componentes también dejan de existir o dejan de tener sentido. Es la forma más cercana de “composición” propiamente dicha.
+
+La composición débil o agregación implica que el contenedor refiere a otros objetos, pero esos objetos pueden existir por separado. El contenedor no es responsable exclusivo de su ciclo de vida. Esa relación suele denominarse “asociación o agregación”.
+
+Por tanto:
+- Composición fuerte: el objeto contenido no tiene sentido independiente y su ciclo de vida está ligado al contenedor.
+- Composición débil (agregación): el objeto contenido puede existir sin el contenedor y el contenedor solo mantiene una referencia a él.
+
+---
+
+## 5. Uso de objetos en métodos y dependencia
+
+Cuando una clase usa a otra en parámetros, en valores de retorno, dentro de métodos con `new`, o como variables locales, se habla de dependencia. No es composición en el sentido fuerte de contener y gestionar el ciclo de vida.
+
+La dependencia indica que una clase necesita a otra para realizar alguna tarea, pero no necesariamente mantiene una relación estructural duradera ni la propiedad de su ciclo de vida.
+
+---
+
+## 6. Relación fuerte y débil entre `Linea` y `Punto`
+
+Para composición fuerte, `Linea` crea y posee internamente sus puntos. Los `Punto` no se suministran desde fuera y su ciclo de vida queda ligado a la línea.
+
+```java
+public final class LineaFuerte {
+    private final Punto inicio;
+    private final Punto fin;
+
+    public LineaFuerte(double x1, double y1, double x2, double y2) {
+        this.inicio = new Punto(x1, y1);
+        this.fin = new Punto(x2, y2);
+    }
+
+    public double longitud() {
+        return inicio.distanciaA(fin);
+    }
+}
+```
+
+Para composición débil, `Linea` recibe referencias a puntos existentes. Eso permite que los puntos vivan fuera de la línea y se compartan con otras estructuras.
+
+```java
+public final class LineaDebil {
+    private final Punto inicio;
+    private final Punto fin;
+
+    public LineaDebil(Punto inicio, Punto fin) {
+        this.inicio = inicio;
+        this.fin = fin;
+    }
+
+    public double longitud() {
+        return inicio.distanciaA(fin);
+    }
+}
+```
+
+En la versión fuerte, el ciclo de vida de los puntos queda ligado a la línea porque se crean en su constructor. En la versión débil, los puntos pueden seguir existiendo aunque la línea se destruya.
+
+---
+
+## 7. Destrucción de objetos en Java en la composición fuerte
+
+En Java no hay destrucción explícita de objetos por parte del contenedor. El recolector de basura elimina los objetos cuando ya no hay referencias activas a ellos.
+
+Por eso, aunque `Linea` no llama a ningún método para destruir `Punto`, los puntos serán recolectados automáticamente cuando `Linea` deje de ser referenciada y no existan otras referencias externas a esos puntos.
+
+---
+
+## 8. Composición débil con `Departamento` y `Profesor`
+
+Ejemplo de departamento que usa `Profesor[]` de forma encapsulada, con invariantes de director y excepciones.
+
+```java
+public final class Profesor {
+    private final String nombre;
+
+    public Profesor(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre es obligatorio");
+        }
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}
+
+public final class Departamento {
+    private static final int MAX_PROFESORES = 50;
+    private final Profesor[] profesores = new Profesor[MAX_PROFESORES];
+    private int cantidad = 0;
+    private Profesor director;
+
+    public Departamento(Profesor directorInicial) {
+        if (directorInicial == null) {
+            throw new IllegalArgumentException("Debe haber un director");
+        }
+        this.director = directorInicial;
+        profesores[cantidad++] = directorInicial;
+    }
+
+    public int getCantidadProfesores() {
+        return cantidad;
+    }
+
+    public Profesor getProfesor(int posicion) {
+        if (posicion < 0 || posicion >= cantidad) {
+            throw new IndexOutOfBoundsException("Posición fuera de rango");
+        }
+        return profesores[posicion];
+    }
+
+    public void anadirProfesor(Profesor profesor) {
+        if (profesor == null) {
+            throw new IllegalArgumentException("Profesor nulo");
+        }
+        if (cantidad >= MAX_PROFESORES) {
+            throw new IllegalStateException("Máximo de profesores alcanzado");
+        }
+        profesores[cantidad++] = profesor;
+    }
+
+    public void eliminarProfesor(int posicion) {
+        if (posicion < 0 || posicion >= cantidad) {
+            throw new IndexOutOfBoundsException("Posición fuera de rango");
+        }
+        Profesor eliminado = profesores[posicion];
+        if (eliminado.equals(director)) {
+            throw new IllegalStateException("No se puede eliminar al director");
+        }
+        System.arraycopy(profesores, posicion + 1, profesores, posicion, cantidad - posicion - 1);
+        profesores[--cantidad] = null;
+    }
+
+    public void cambiarDirector(Profesor nuevoDirector) {
+        if (nuevoDirector == null) {
+            throw new IllegalArgumentException("Director nulo");
+        }
+        boolean existe = false;
+        for (int i = 0; i < cantidad; i++) {
+            if (profesores[i].equals(nuevoDirector)) {
+                existe = true;
+                break;
+            }
+        }
+        if (!existe) {
+            throw new IllegalStateException("El director debe ser profesor del departamento");
+        }
+        director = nuevoDirector;
+    }
+
+    public Profesor getDirector() {
+        return director;
+    }
+}
+```
+
+En este diseño el departamento mantiene una relación débil con sus profesores: no crea los `Profesor`, solo guarda referencias. El director es también un profesor del arreglo, y las operaciones preservan la invariante de que siempre debe existir un director y ese director debe estar en la colección de profesores.
+
+---
+
+## 9. Mismo ejemplo usando `List`
+
+Con `List<Profesor>` la gestión de la colección se simplifica, por ejemplo no hay que manejar desplazamientos manuales ni capacidad máxima. Se puede usar `new ArrayList<>()` y conservar la invariante.
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public final class Departamento {
+    private final List<Profesor> profesores = new ArrayList<>();
+    private Profesor director;
+
+    public Departamento(Profesor directorInicial) {
+        if (directorInicial == null) {
+            throw new IllegalArgumentException("Debe haber un director");
+        }
+        this.director = directorInicial;
+        profesores.add(directorInicial);
+    }
+
+    public int getCantidadProfesores() {
+        return profesores.size();
+    }
+
+    public Profesor getProfesor(int posicion) {
+        return profesores.get(posicion);
+    }
+
+    public void anadirProfesor(Profesor profesor) {
+        if (profesor == null) {
+            throw new IllegalArgumentException("Profesor nulo");
+        }
+        profesores.add(profesor);
+    }
+
+    public void eliminarProfesor(int posicion) {
+        Profesor eliminado = profesores.get(posicion);
+        if (eliminado.equals(director)) {
+            throw new IllegalStateException("No se puede eliminar al director");
+        }
+        profesores.remove(posicion);
+    }
+
+    public void cambiarDirector(Profesor nuevoDirector) {
+        if (!profesores.contains(nuevoDirector)) {
+            throw new IllegalStateException("El director debe ser profesor del departamento");
+        }
+        director = nuevoDirector;
+    }
+
+    public Profesor getDirector() {
+        return director;
+    }
+}
+```
+
+Lo que se ahorra respecto al código con arrays primitivos:
+- Eliminación manual de elementos con `System.arraycopy`
+- Control de capacidad y límite de `MAX_PROFESORES`
+- Inicialización y manejo del índice `cantidad`
+
+Si existiera un método que devolviera directamente la lista interna, se rompería la encapsulación: el cliente podría modificar esa lista y alterar el estado interno del departamento. La solución es devolver una copia inmutable o defensiva, por ejemplo `return Collections.unmodifiableList(new ArrayList<>(profesores));` o `return List.copyOf(profesores);`.
+
+---
+
+## 10. Composición recursiva con `Persona` inmutable
+
+La composición recursiva ocurre cuando un objeto contiene una referencia a otro del mismo tipo, como las excepciones con causa en Java.
+
+```java
+public final class Persona {
+    private final String nombre;
+    private final Persona madre;
+
+    public Persona(String nombre, Persona madre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("Nombre obligatorio");
+        }
+        this.nombre = nombre;
+        this.madre = madre;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Persona getMadre() {
+        return madre;
+    }
+}
+```
+
+Ejemplo de uso en `main`:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Persona abuela = new Persona("Ana", null);
+        Persona madre = new Persona("Beatriz", abuela);
+        Persona nieto = new Persona("Carlos", madre);
+
+        System.out.println(nieto.getNombre() + " tiene madre " + nieto.getMadre().getNombre());
+        System.out.println("La abuela es " + nieto.getMadre().getMadre().getNombre());
+    }
+}
+```
+
+Otros ejemplos clásicos de composiciones recursivas:
+- un árbol binario donde cada nodo tiene referencias a nodos hijo del mismo tipo
+- una lista enlazada donde cada nodo apunta al siguiente nodo
+- excepciones en Java donde `Throwable.getCause()` devuelve otra `Throwable`
+
+---
+
+## 11. Relaciones de composición bidireccionales
+
+Una composición bidireccional existe cuando ambos objetos se refieren mutuamente: el contenedor conoce al contenido y el contenido conoce al contenedor.
+
+En `Profesor` y `Departamento`, sería necesario que `Profesor` tuviera una referencia a su `Departamento` y que `Departamento` mantuviera la lista de `Profesor`. La implementación debería actualizar ambas referencias de forma consistente cuando se añaden, eliminan o cambian de departamento.
+
+Para lograrlo, el departamento añadiría al profesor y a su vez el profesor recibiría la referencia al departamento. Al eliminar un profesor, sería necesario limpiar la referencia del profesor al departamento y garantizar que el director siga perteneciendo al departamento. Esto añade complejidad porque cualquier cambio debe mantener sincronizadas ambas direcciones de la relación.
